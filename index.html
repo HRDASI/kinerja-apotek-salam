@@ -1,0 +1,643 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover">
+<title>Kinerja Apotek Salam</title>
+<style>
+:root{--teal:#0FADA6;--teal-d:#0B8F89;--teal-l:#E3F6F5;--orange:#F5A01A;--orange-l:#FEF1DA;--bg:#F3F6F6;--card:#fff;--ink:#1E2928;--mut:#687776;--line:#E2E9E8;--red:#D14343;--red-l:#FCE9E9;--green:#1C9A5E;--green-l:#E2F5EC}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);font-family:Roboto,"Segoe UI",system-ui,sans-serif;font-size:15px}
+button{font:inherit;cursor:pointer;border:0}
+input,select,textarea{font:inherit;color:inherit}
+.hidden{display:none!important}
+.scr{min-height:100%;display:flex;flex-direction:column}
+.wrap{padding:16px;max-width:560px;width:100%;margin:0 auto}
+.card{background:var(--card);border-radius:16px;padding:16px;margin-bottom:12px;box-shadow:0 1px 2px rgba(0,0,0,.05)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:12px;padding:13px 18px;font-weight:600;font-size:15px}
+.btn.primary{background:var(--teal);color:#fff}
+.btn.orange{background:var(--orange);color:#fff}
+.btn.ghost{background:transparent;color:var(--teal-d);border:1.5px solid var(--line)}
+.btn.light{background:var(--teal-l);color:var(--teal-d)}
+.btn.danger{background:var(--red-l);color:var(--red)}
+.btn.block{width:100%}
+.btn:disabled{opacity:.45}
+.small{font-size:13px;color:var(--mut)}
+.muted{color:var(--mut)}
+label{display:block;font-size:13px;font-weight:600;color:var(--mut);margin:12px 0 6px}
+.inp{width:100%;padding:13px 14px;border:1.5px solid var(--line);border-radius:12px;background:#fff;outline:none}
+.inp:focus{border-color:var(--teal)}
+h1,h2,h3{margin:0}
+.logoBig{width:220px;max-width:70%;display:block;margin:28px auto 8px}
+.center{text-align:center}
+.err{background:var(--red-l);color:var(--red);padding:10px 12px;border-radius:10px;font-size:14px;margin-top:12px}
+
+/* header */
+.top{background:#fff;padding:10px 16px;display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5}
+.top img{height:34px}
+.top .sp{flex:1}
+.chip{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:600;padding:4px 9px;border-radius:999px;background:var(--teal-l);color:var(--teal-d)}
+.chip.warn{background:var(--orange-l);color:#A86600}
+.chip.bad{background:var(--red-l);color:var(--red)}
+.chip.ok{background:var(--green-l);color:var(--green)}
+
+/* beranda */
+.hello{font-size:18px;font-weight:700}
+.clock{font-size:46px;font-weight:700;letter-spacing:1px;line-height:1.1;margin-top:4px}
+.clock small{font-size:22px;color:var(--mut);font-weight:600}
+.row{display:flex;gap:10px;align-items:center}
+.row>.f{flex:1}
+.stat{display:flex;gap:12px;align-items:flex-start}
+.ico{width:38px;height:38px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex:none}
+.ico svg{width:20px;height:20px}
+.ico.t{background:var(--teal-l);color:var(--teal-d)} .ico.o{background:var(--orange-l);color:#B56E00} .ico.r{background:var(--red-l);color:var(--red)} .ico.g{background:var(--green-l);color:var(--green)}
+.today{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.today .box{border:1.5px solid var(--line);border-radius:14px;padding:12px}
+.today .box b{display:block;font-size:22px;margin:2px 0}
+.bigbtns{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
+.bigbtns .btn{flex-direction:column;padding:18px 10px;border-radius:16px;font-size:16px}
+.bigbtns svg{width:28px;height:28px}
+.banner{display:flex;align-items:center;gap:10px;background:var(--orange-l);color:#7A4A00;border-radius:14px;padding:12px 14px;margin-bottom:12px;font-size:14px}
+
+/* tab bar */
+.content{flex:1;padding-bottom:84px}
+.tabs{position:fixed;left:0;right:0;bottom:0;background:#fff;border-top:1px solid var(--line);display:flex;padding-bottom:env(safe-area-inset-bottom);z-index:6}
+.tabs button{flex:1;background:none;padding:9px 0 10px;color:var(--mut);font-size:12px;font-weight:600;display:flex;flex-direction:column;align-items:center;gap:3px}
+.tabs button svg{width:22px;height:22px}
+.tabs button.on{color:var(--teal-d)}
+
+/* list */
+.dateHead{font-size:13px;font-weight:700;color:var(--mut);margin:16px 4px 8px;text-transform:capitalize}
+.item{display:flex;gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}
+.item:last-child{border-bottom:0}
+.item .f{flex:1;min-width:0}
+.item .t{font-weight:700}
+.link{color:var(--teal-d);font-weight:600;font-size:13px;background:none;padding:4px 0}
+
+/* kamera */
+.cam{position:fixed;inset:0;background:#000;z-index:20;display:flex;flex-direction:column}
+.cam video,.cam canvas{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.cam canvas{object-fit:contain;background:#000}
+.cam video.mirror{transform:scaleX(-1)}
+.camTop{position:relative;z-index:2;display:flex;align-items:center;gap:10px;padding:12px;background:linear-gradient(rgba(0,0,0,.55),transparent)}
+.camTop .tt{flex:1;color:#fff;font-weight:700;font-size:17px}
+.rb{width:44px;height:44px;border-radius:50%;background:rgba(0,0,0,.4);color:#fff;display:flex;align-items:center;justify-content:center}
+.rb svg{width:22px;height:22px}
+.camInfo{position:absolute;left:0;right:0;bottom:118px;z-index:2;padding:14px 16px;color:#fff;background:linear-gradient(transparent,rgba(0,0,0,.7));text-shadow:0 1px 2px rgba(0,0,0,.6)}
+.camInfo .ct{font-size:40px;font-weight:700;line-height:1}
+.camInfo .cs{font-size:13px;opacity:.95;margin-top:6px;line-height:1.45}
+.camMsg{display:inline-block;margin-top:8px;padding:6px 10px;border-radius:10px;font-size:13px;font-weight:600;text-shadow:none}
+.camMsg.ok{background:rgba(28,154,94,.9)} .camMsg.wait{background:rgba(245,160,26,.95);color:#2a1a00} .camMsg.bad{background:rgba(209,67,67,.95)}
+.camBottom{position:absolute;left:0;right:0;bottom:0;height:118px;z-index:2;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.7)}
+.shutter{width:76px;height:76px;border-radius:50%;background:#fff;border:6px solid rgba(255,255,255,.35);background-clip:padding-box}
+.shutter:disabled{opacity:.35}
+.camReview{position:absolute;left:0;right:0;bottom:0;z-index:3;background:#fff;padding:14px 16px calc(14px + env(safe-area-inset-bottom));border-radius:18px 18px 0 0}
+.camReview textarea{width:100%;height:56px;resize:none;border:1.5px solid var(--line);border-radius:12px;padding:10px;margin-bottom:10px;outline:none}
+.camReview .row .btn{flex:1}
+
+/* modal & toast */
+.ov{position:fixed;inset:0;background:rgba(10,20,20,.5);z-index:40;display:flex;align-items:flex-end;justify-content:center}
+.sheet{background:#fff;width:100%;max-width:560px;border-radius:20px 20px 0 0;padding:20px 16px calc(16px + env(safe-area-inset-bottom));max-height:88vh;overflow:auto}
+.sheet h3{font-size:18px;margin-bottom:8px}
+.sheet p{margin:6px 0 14px;line-height:1.5;color:#3d4a49}
+.okc{width:72px;height:72px;border-radius:50%;background:var(--green-l);color:var(--green);display:flex;align-items:center;justify-content:center;margin:6px auto 10px}
+.okc svg{width:38px;height:38px}
+.toast{position:fixed;left:16px;right:16px;bottom:96px;z-index:50;background:#1E2928;color:#fff;padding:12px 14px;border-radius:12px;font-size:14px;text-align:center;transition:opacity .25s;max-width:528px;margin:0 auto}
+.spin{width:22px;height:22px;border:3px solid rgba(255,255,255,.35);border-top-color:#fff;border-radius:50%;animation:sp 0.8s linear infinite}
+.spin.d{border-color:var(--teal-l);border-top-color:var(--teal)}
+@keyframes sp{to{transform:rotate(360deg)}}
+.loading{display:flex;align-items:center;justify-content:center;gap:10px;padding:24px;color:var(--mut)}
+.kv{display:flex;justify-content:space-between;gap:10px;padding:9px 0;border-bottom:1px solid var(--line);font-size:14px}
+.kv:last-child{border-bottom:0}
+.kv span:last-child{font-weight:600;text-align:right;word-break:break-all}
+.sum{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px}
+.sum div{background:#fff;border-radius:14px;padding:10px;text-align:center}
+.sum b{display:block;font-size:22px}
+.top .who{font-size:13px;font-weight:600;color:var(--mut);text-align:right;line-height:1.2}
+.content{padding-bottom:24px}
+/* kinerja & ujian */
+.seg{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:8px}
+.seg button{padding:8px 0;border-radius:10px;background:#fff;border:1.5px solid var(--line);font-weight:700;font-size:16px;color:var(--ink)}
+.seg button small{display:block;font-size:10px;font-weight:500;color:var(--mut)}
+.seg button.on{background:var(--teal);color:#fff;border-color:var(--teal)}
+.seg button.on small{color:#E3F6F5}
+.asp{padding:12px 0;border-bottom:1px solid var(--line)}
+.asp:last-child{border-bottom:0}
+.big{font-size:30px;font-weight:700;line-height:1.1}
+.ujian{position:fixed;inset:0;z-index:30;background:var(--bg);overflow:auto}
+.ujTop{background:#fff;padding:12px 16px;display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:2}
+.ujTimer{font-size:20px;font-weight:700;font-variant-numeric:tabular-nums}
+.ujTimer.low{color:var(--red)}
+.opt{display:flex;gap:10px;width:100%;text-align:left;padding:13px 14px;border:1.5px solid var(--line);border-radius:12px;background:#fff;margin-top:8px;font-size:15px;line-height:1.4;color:var(--ink)}
+.opt b{flex:none;width:24px;height:24px;border-radius:50%;background:var(--teal-l);color:var(--teal-d);display:flex;align-items:center;justify-content:center;font-size:13px}
+.opt.on{border-color:var(--teal);background:var(--teal-l)}
+.opt.on b{background:var(--teal);color:#fff}
+.nums{display:grid;grid-template-columns:repeat(auto-fill,minmax(40px,1fr));gap:6px}
+.nums button{padding:9px 0;border-radius:9px;background:#fff;border:1.5px solid var(--line);font-weight:600;color:var(--ink)}
+.nums button.on{background:var(--teal-l);border-color:var(--teal)}
+.nums button.cur{border-color:var(--orange);box-shadow:0 0 0 1px var(--orange)}
+</style>
+<meta name="theme-color" content="#0FADA6">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Kinerja Salam">
+<meta name="robots" content="noindex,nofollow">
+<link rel="apple-touch-icon" href="img/ikon-180.png">
+<link rel="icon" type="image/png" href="img/ikon-192.png">
+<link rel="manifest" href="manifest.webmanifest">
+</head>
+<body>
+
+<!-- Masuk -->
+<section id="scrLogin" class="scr hidden">
+  <div class="wrap">
+    <img src="img/logo.png" class="logoBig" alt="Apotek Salam">
+    <div class="card">
+      <h2 style="font-size:19px">Kinerja Karyawan</h2>
+      <p class="small" style="margin:6px 0 0">Masuk dengan <b>nama & PIN yang sama</b> seperti aplikasi Absensi.</p>
+      <label for="lNama">Nama</label>
+      <select id="lNama" class="inp"></select>
+      <label for="lPin">PIN</label>
+      <input id="lPin" class="inp" type="password" inputmode="numeric" autocomplete="off" placeholder="PIN absensi">
+      <div id="loginErr" class="err hidden"></div>
+      <button id="btnLogin" class="btn primary block" style="margin-top:14px">Masuk</button>
+      <button id="btnReload" class="link" style="margin-top:10px">Muat ulang daftar nama</button>
+    </div>
+  </div>
+</section>
+
+<!-- Aplikasi -->
+<section id="scrMain" class="scr hidden">
+  <div class="top">
+    <img src="img/logo.png" alt="Apotek Salam">
+    <div class="sp"></div>
+    <div class="who"><span id="topNama"></span><br><button class="link" id="btnKeluar" style="padding:0;font-size:12px">Keluar</button></div>
+  </div>
+  <div class="content">
+    <div id="tabKinerja" class="wrap"></div>
+  </div>
+</section>
+
+<div id="ov" class="ov hidden"><div class="sheet" id="sheet"></div></div>
+<div id="toast" class="toast hidden"></div>
+
+<script>
+'use strict';
+/* ================= Dasar ================= */
+// Alamat server (URL web app Apps Script) disisipkan saat build dari server/server-url.txt.
+const SERVER = 'https://script.google.com/macros/s/AKfycbzICYK3JV92Wb3lXLOdAaijvZliUE3eVKX8dBSBuXmawHVW_CICfnlBUEQETv3S22Y6/exec';
+const $ = s => document.querySelector(s);
+const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const LS = {
+  get(k, d) { try { const v = localStorage.getItem('ks_' + k); return v ? JSON.parse(v) : d; } catch (e) { return d; } },
+  set(k, v) { try { localStorage.setItem('ks_' + k, JSON.stringify(v)); } catch (e) {} },
+  del(k) { try { localStorage.removeItem('ks_' + k); } catch (e) {} }
+};
+let user = LS.get('user', null); // {nama, pin, peran}
+
+async function api(action, data) {
+  if (!SERVER) throw new Error('Alamat server belum diatur.');
+  const body = Object.assign({ action }, data || {});
+  if (user) { body.nama = user.nama; body.pin = user.pin; }
+  let res;
+  try { res = await fetch(SERVER, { method: 'POST', body: JSON.stringify(body), headers: { 'Content-Type': 'text/plain;charset=utf-8' } }); }
+  catch (e) { const er = new Error('Tidak ada koneksi internet.'); er.net = true; throw er; }
+  let j;
+  try { j = JSON.parse(await res.text()); } catch (e) { throw new Error('Server bermasalah (kode ' + res.status + '). Coba lagi sebentar lagi.'); }
+  if (!j.ok) { const er = new Error(j.error || 'Gagal.'); er.server = true; throw er; }
+  return j;
+}
+
+const hariIni = () => new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Jakarta' }).format(new Date());
+function tglPanjang(ymd) {
+  const p = String(ymd || '').split('-').map(Number);
+  if (p.length !== 3) return ymd || '';
+  return new Date(Date.UTC(p[0], p[1] - 1, p[2])).toLocaleDateString('id-ID', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
+}
+
+let toastT = null;
+function toast(msg, ms) {
+  const t = $('#toast'); t.textContent = msg; t.classList.remove('hidden'); t.style.opacity = 1;
+  clearTimeout(toastT); toastT = setTimeout(() => { t.style.opacity = 0; setTimeout(() => t.classList.add('hidden'), 260); }, ms || 3200);
+}
+let modalClose = null, modalKunci = false;
+function modal(html, onClose) { $('#sheet').innerHTML = html; $('#ov').classList.remove('hidden'); $('#sheet').scrollTop = 0; modalClose = onClose || null; }
+function closeModal() { modalKunci = false; $('#ov').classList.add('hidden'); const f = modalClose; modalClose = null; if (f) f(); }
+$('#ov').addEventListener('click', e => { if (e.target.id === 'ov' && !modalKunci) closeModal(); });
+function alertBox(title, msg) {
+  return new Promise(res => {
+    modal('<h3>' + esc(title) + '</h3><p>' + msg + '</p><button class="btn primary block" id="mOk">OK</button>', res);
+    $('#mOk').onclick = closeModal;
+  });
+}
+function confirmBox(title, msg, okLabel) {
+  return new Promise(res => {
+    let v = false;
+    modal('<h3>' + esc(title) + '</h3><p>' + msg + '</p><div class="row"><button class="btn ghost f" id="mNo">Batal</button><button class="btn primary f" id="mYes">' + esc(okLabel || 'Ya') + '</button></div>', () => res(v));
+    $('#mNo').onclick = closeModal;
+    $('#mYes').onclick = () => { v = true; closeModal(); };
+  });
+}
+function busy(msg) { modal('<div class="loading"><div class="spin d"></div>' + esc(msg) + '</div>'); }
+function show(id) { ['#scrLogin', '#scrMain'].forEach(s => $(s).classList.toggle('hidden', s !== id)); }
+function showErr(el, msg) { el.textContent = msg; el.classList.remove('hidden'); }
+
+/* ================= Masuk / keluar ================= */
+async function muatNama() {
+  const sel = $('#lNama'); sel.innerHTML = '<option value="">Memuat...</option>';
+  $('#loginErr').classList.add('hidden');
+  try {
+    const j = await api('info');
+    sel.innerHTML = '<option value="">— Pilih nama —</option>' + j.karyawan.map(n => '<option>' + esc(n) + '</option>').join('');
+    const last = LS.get('lastNama', '');
+    if (last && j.karyawan.includes(last)) sel.value = last;
+  } catch (e) { sel.innerHTML = '<option value="">Gagal memuat nama</option>'; showErr($('#loginErr'), e.message); }
+}
+function keLogin(pesan) {
+  user = null; LS.del('user'); show('#scrLogin'); $('#lPin').value = ''; muatNama();
+  if (pesan) setTimeout(() => showErr($('#loginErr'), pesan), 50);
+}
+$('#btnReload').onclick = muatNama;
+$('#lPin').addEventListener('keydown', e => { if (e.key === 'Enter') $('#btnLogin').click(); });
+$('#btnLogin').onclick = async () => {
+  const err = $('#loginErr'); err.classList.add('hidden');
+  const nama = $('#lNama').value, pin = $('#lPin').value.trim();
+  if (!nama) return showErr(err, 'Pilih nama Anda.');
+  if (!pin) return showErr(err, 'Masukkan PIN.');
+  const b = $('#btnLogin'); b.disabled = true; b.textContent = 'Memeriksa...';
+  try {
+    const j = await api('login', { nama, pin });
+    user = { nama: j.user.nama, pin, peran: j.user.peran };
+    LS.set('user', user); LS.set('lastNama', j.user.nama);
+    masuk();
+  } catch (e) { showErr(err, e.message); }
+  b.disabled = false; b.textContent = 'Masuk';
+};
+$('#btnKeluar').onclick = async () => { if (await confirmBox('Keluar?', 'Anda perlu memasukkan PIN lagi untuk masuk.', 'Keluar')) keLogin(); };
+function masuk() { show('#scrMain'); $('#topNama').textContent = user.nama; renderKinerja(); }
+// PIN diganti/akun dinonaktifkan di Absensi -> minta login ulang.
+const sesiHabis = e => e && e.server && /PIN salah|tidak terdaftar|nonaktif|Terlalu banyak/.test(e.message);
+
+/* ---------- Jabatan karyawan (admin) ---------- */
+async function formJabatan() {
+  busy('Memuat daftar karyawan...');
+  let j;
+  try { j = await api('jabatanList'); } catch (e) { closeModal(); return alertBox('Gagal', esc(e.message)); }
+  modal('<h3>Jabatan karyawan</h3><p class="small" style="margin-top:0">Nama diambil otomatis dari aplikasi Absensi. Isi jabatan bagi yang ikut penilaian; pilih <b>Tidak dinilai</b> untuk pemilik/admin. Mulai kerja dipakai untuk bonus loyalitas.</p>' +
+    j.data.map((k, i) => '<div class="asp"><b>' + esc(k.nama) + '</b>' + (k.peran === 'admin' ? ' <span class="chip">Admin</span>' : '') +
+      '<div class="row" style="margin-top:6px"><select class="inp f" data-j="' + i + '"><option value="">— Tidak dinilai —</option>' +
+      j.jabatanList.map(x => '<option value="' + x.k + '"' + (k.jabatan === x.k ? ' selected' : '') + '>' + esc(x.nama) + '</option>').join('') + '</select>' +
+      '<input type="date" class="inp f" data-m="' + i + '" value="' + esc(k.mulai) + '" max="' + hariIni() + '" aria-label="Mulai kerja"></div></div>').join('') +
+    '<div class="small">Kolom kanan = tanggal mulai kerja.</div><div id="jErr" class="err hidden"></div>' +
+    '<div class="row" style="margin-top:14px"><button class="btn ghost f" id="jBatal">Batal</button><button class="btn primary f" id="jSimpan">Simpan</button></div>');
+  $('#jBatal').onclick = closeModal;
+  $('#jSimpan').onclick = async () => {
+    const data = j.data.map((k, i) => ({ nama: k.nama, jabatan: $('[data-j="' + i + '"]').value, mulai: $('[data-m="' + i + '"]').value }));
+    const b = $('#jSimpan'); b.disabled = true; b.textContent = 'Menyimpan...';
+    try { await api('jabatanSimpan', { data }); closeModal(); toast('Jabatan disimpan.'); renderKinerja(); }
+    catch (e) { showErr($('#jErr'), e.message); b.disabled = false; b.textContent = 'Simpan'; }
+  };
+}
+
+/* ================= Kinerja: penilaian & ujian ================= */
+const JABN = { AA: 'Asisten Apoteker', TTK: 'TTK', APT: 'Apoteker' };
+const SKALA = ['Perlu bimbingan', 'Cukup', 'Baik', 'Sangat baik'];
+let K = null, kPeriode = null;
+const rupiah = n => 'Rp' + Number(n || 0).toLocaleString('id-ID');
+const chipPred = p => p ? '<span class="chip ' + (/gugur|Pembinaan/.test(p) ? 'bad' : /Cukup/.test(p) ? 'warn' : 'ok') + '">' + esc(p) + '</span>' : '';
+const fmtN = v => v === null || v === undefined ? '–' : String(Math.round(v * 10) / 10).replace('.', ',');
+
+async function renderKinerja() {
+  const el = $('#tabKinerja');
+  el.innerHTML = '<div class="loading"><div class="spin d"></div>Memuat...</div>';
+  try { K = await api('kinerjaInfo'); }
+  catch (e) {
+    if (sesiHabis(e)) return keLogin(e.message + ' Silakan masuk lagi.');
+    el.innerHTML = '<div class="card center muted">' + esc(e.net ? 'Tidak ada koneksi internet.' : e.message) + '</div><button class="btn light block" id="kUlang">Coba lagi</button>';
+    $('#kUlang').onclick = renderKinerja; return;
+  }
+  if (!kPeriode || !K.periodeList.some(p => p.k === kPeriode)) kPeriode = K.periode;
+  let h = '<div class="card"><div class="row"><div class="f"><b style="font-size:17px">Kinerja</b><div class="small">' + esc(K.periodeLabel) + '</div></div>' +
+    (K.jabatan ? '<span class="chip">' + esc(K.jabatanNama) + '</span>' : K.admin ? '<span class="chip">Admin · penilai</span>' : '<span class="chip warn">Jabatan belum diatur</span>') + '</div>' +
+    (K.jabatan || K.admin ? '' : '<div class="small" style="margin-top:8px">Jabatan Anda belum diisi, jadi belum ikut ujian & penilaian. Hubungi admin.</div>') + '</div>';
+  if (K.jabatan) h += kartuUjian() + kartuHasilSaya();
+  if (K.penilai) {
+    h += '<div class="card"><b>Catatan kejadian</b><div class="small" style="margin:4px 0 10px">Catat kejadian penting segera (salah ambil obat, selisih kas/stok, komplain, pujian, dsb.) supaya penilaian triwulan berdasarkan data, bukan ingatan.</div>' +
+      '<div class="row"><button class="btn primary f" id="kCatat">+ Catat kejadian</button><button class="btn ghost f" id="kLihat">Lihat catatan</button></div></div>' +
+      '<div class="card"><div class="row"><div class="f"><b>Penilaian triwulan</b></div>' +
+      '<select id="kPer" class="inp" style="width:auto;padding:9px 10px">' + K.periodeList.map(p => '<option value="' + p.k + '"' + (p.k === kPeriode ? ' selected' : '') + '>' + esc(p.label.replace(/ \(.*\)/, '')) + '</option>').join('') + '</select></div>' +
+      '<div id="kList"><div class="loading"><div class="spin d"></div>Memuat...</div></div></div>' +
+      '<div class="card"><b>Ujian tertulis</b><div id="uAdmin"><div class="loading"><div class="spin d"></div>Memuat...</div></div></div>';
+  }
+  if (K.admin) h += '<div class="card"><b>Jabatan karyawan</b><div class="small" style="margin:4px 0 10px">Nama otomatis dari aplikasi Absensi. Atur siapa saja yang dinilai (Asisten Apoteker / TTK / Apoteker) dan tanggal mulai kerjanya.</div><button class="btn light block" id="kJab">Atur jabatan & mulai kerja</button></div>';
+  h += '<div class="card small" style="line-height:1.55"><b style="color:var(--ink)">Cara penilaian</b><br>Dinilai per triwulan (3 bulan). Nilai 0–100 dari: ketelitian, keramahan, stok & kas, kejujuran, kerja tim, ujian tertulis, dan kedisiplinan (otomatis dari absensi). ' +
+    'Bonus: ' + K.tingkat.filter(t => t[2]).map(t => '≥' + t[0] + ' ' + t[1] + ' ' + t[2] + '%').join(' · ') + '. Ada tambahan bonus peningkatan (nilai naik ≥10 poin) dan bonus loyalitas (masa kerja). Pelanggaran kejujuran yang terbukti membuat bonus triwulan itu gugur.</div>';
+  el.innerHTML = h;
+  if ($('#uMulai')) $('#uMulai').onclick = mulaiUjian;
+  if ($('#kJab')) $('#kJab').onclick = formJabatan;
+  el.querySelectorAll('[data-hasil]').forEach(b => b.onclick = () => detailHasilSaya(K.hasil[+b.dataset.hasil]));
+  if (K.penilai) {
+    $('#kCatat').onclick = () => formCatatan();
+    $('#kLihat').onclick = lihatCatatan;
+    $('#kPer').onchange = e => { kPeriode = e.target.value; muatDaftarNilai(); muatUjianAdmin(); };
+    muatDaftarNilai(); muatUjianAdmin();
+  }
+}
+
+function kartuUjian() {
+  const U = K.ujian, H = U.hasil;
+  let b = '<div class="card"><b>Ujian tertulis</b>';
+  if (H && H.status === 'Selesai') {
+    b += '<div class="row" style="margin-top:8px"><div class="big">' + fmtN(H.nilai) + '</div><div class="small f">Nilai ujian triwulan ini<br>' + H.benar + ' dari ' + H.jumlah + ' soal benar</div></div>';
+  } else if (H && H.status === 'Berlangsung') {
+    b += '<div class="small" style="margin:4px 0 10px">Ujian Anda sedang berjalan. Sisa waktu ±' + Math.ceil((H.sisa || 0) / 60) + ' menit.</div><button class="btn orange block" id="uMulai">Lanjutkan ujian</button>';
+  } else if (U.dibuka) {
+    b += '<div class="small" style="margin:4px 0 10px">' + U.jumlah + ' soal pilihan ganda · ' + U.durasi + ' menit · <b>hanya 1 kali kesempatan</b> per triwulan.</div><button class="btn primary block" id="uMulai">Mulai ujian</button>';
+  } else {
+    b += '<div class="small" style="margin-top:4px">Ujian triwulan ini belum dibuka.</div>';
+  }
+  return b + '</div>';
+}
+
+function kartuHasilSaya() {
+  return '<div class="card"><b>Hasil penilaian saya</b>' + (K.hasil.length ? K.hasil.map((x, i) =>
+    '<div class="item"><div class="f"><div class="t">' + esc(x.label) + '</div><div class="small">Nilai ' + fmtN(x.total) + ' · bonus ' + fmtN(x.akhir) + '%' + (x.rp ? ' (' + rupiah(x.rp) + ')' : '') + '</div></div>' +
+    chipPred(x.predikat) + '<button class="link" data-hasil="' + i + '">Rincian</button></div>').join('')
+    : '<div class="small" style="margin-top:6px">Belum ada hasil penilaian final.</div>') + '</div>';
+}
+
+function detailHasilSaya(x) {
+  modal('<h3>' + esc(x.label) + '</h3><div class="row" style="margin:6px 0 10px"><div class="big">' + fmtN(x.total) + '</div>' + chipPred(x.predikat) + '</div>' +
+    x.rincian.map(r => '<div class="kv"><span>' + esc(r.nama) + ' <span class="small">(' + r.bobot + '%)</span></span><span>' +
+      (r.skor ? r.skor + ' · ' + esc(SKALA[r.skor - 1]) : r.nilai === null || r.nilai === undefined ? 'belum ada' : fmtN(r.nilai)) + '</span></div>').join('') +
+    '<div class="kv"><span>Bonus</span><span>' + fmtN(x.akhir) + '%' + (x.rp ? ' · ' + rupiah(x.rp) : '') + '</span></div>' +
+    (x.kelebihan ? '<p><b>Kelebihan:</b> ' + esc(x.kelebihan) + '</p>' : '') +
+    (x.saran ? '<p><b>Saran perbaikan:</b> ' + esc(x.saran) + '</p>' : '') +
+    '<button class="btn primary block" id="mOk">Tutup</button>');
+  $('#mOk').onclick = closeModal;
+}
+
+/* ---------- Catatan kejadian ---------- */
+function formCatatan(nama) {
+  const today = hariIni();
+  modal('<h3>Catat kejadian</h3>' +
+    '<label for="cNama">Karyawan</label><select id="cNama" class="inp">' + K.dinilai.map(k => '<option' + (k.nama === nama ? ' selected' : '') + '>' + esc(k.nama) + '</option>').join('') + '</select>' +
+    '<label for="cTgl">Tanggal kejadian</label><input id="cTgl" type="date" class="inp" max="' + today + '" value="' + today + '">' +
+    '<label for="cKat">Kategori</label><select id="cKat" class="inp"><option value="">— Pilih —</option>' +
+      K.kategori.map(k => '<option>' + esc(k.nama) + '</option>').join('') + '</select>' +
+    '<div id="cWarn" class="err hidden">Hanya untuk pelanggaran yang <b>sudah terbukti</b> dan sudah dibicarakan empat mata. Bonus triwulan ini akan gugur. Tulis bukti/kronologi dengan jelas.</div>' +
+    '<label for="cJml">Jumlah / nominal (opsional)</label><input id="cJml" class="inp" maxlength="40" placeholder="mis. Rp20.000 atau 2 strip">' +
+    '<label for="cKet">Keterangan</label><textarea id="cKet" class="inp" rows="3" maxlength="300" placeholder="Apa yang terjadi?"></textarea>' +
+    '<div id="cErr" class="err hidden"></div>' +
+    '<div class="row" style="margin-top:14px"><button class="btn ghost f" id="cBatal">Batal</button><button class="btn primary f" id="cSimpan">Simpan</button></div>');
+  if (!K.dinilai.length) showErr($('#cErr'), 'Belum ada karyawan yang bisa dinilai. ' + (K.admin ? 'Isi jabatan lewat kartu "Jabatan karyawan".' : 'Hubungi admin.'));
+  $('#cKat').onchange = e => $('#cWarn').classList.toggle('hidden', !/kejujuran/.test(e.target.value));
+  $('#cBatal').onclick = closeModal;
+  $('#cSimpan').onclick = async () => {
+    const d = { target: $('#cNama').value, tanggal: $('#cTgl').value, kategori: $('#cKat').value, jumlah: $('#cJml').value.trim(), ket: $('#cKet').value.trim() };
+    if (!d.target) return;
+    if (!d.kategori) return showErr($('#cErr'), 'Pilih kategori.');
+    const b = $('#cSimpan'); b.disabled = true; b.textContent = 'Menyimpan...';
+    try { await api('catatanSimpan', d); closeModal(); toast('Catatan untuk ' + d.target + ' disimpan.'); }
+    catch (e) { showErr($('#cErr'), e.message); b.disabled = false; b.textContent = 'Simpan'; }
+  };
+}
+
+async function lihatCatatan() {
+  busy('Memuat catatan...');
+  let j;
+  try { j = await api('catatanList', { periode: kPeriode }); } catch (e) { closeModal(); return alertBox('Gagal', esc(e.message)); }
+  const per = K.periodeList.find(p => p.k === kPeriode);
+  modal('<h3>Catatan kejadian</h3><div class="small">' + esc(per ? per.label : kPeriode) + '</div>' +
+    (j.data.length ? j.data.map(c => itemCatatan(c)).join('') : '<p class="muted">Belum ada catatan di triwulan ini.</p>') +
+    '<button class="btn primary block" id="mOk" style="margin-top:12px">Tutup</button>');
+  $('#mOk').onclick = closeModal;
+  $('#sheet').querySelectorAll('[data-hapus]').forEach(b => b.onclick = async () => {
+    if (!(await confirmBox('Hapus catatan?', 'Catatan ini akan dihapus permanen.', 'Hapus'))) return lihatCatatan();
+    try { await api('catatanHapus', { id: b.dataset.hapus }); toast('Catatan dihapus.'); } catch (e) { toast(e.message); }
+    lihatCatatan();
+  });
+}
+function itemCatatan(c) {
+  const kat = (K.kategori.find(k => k.nama === c.kategori) || {}).jenis;
+  return '<div class="item" style="align-items:flex-start"><div class="f"><div class="t">' + (c.nama ? esc(c.nama) + ' · ' : '') + '<span class="chip ' +
+    (kat === 'plus' ? 'ok' : kat === 'gugur' ? 'bad' : kat === 'minus' ? 'warn' : '') + '">' + esc(c.kategori) + '</span></div>' +
+    '<div class="small">' + esc(tglPanjang(c.tanggal)) + (c.jumlah ? ' · ' + esc(c.jumlah) : '') + ' · oleh ' + esc(c.oleh) + '</div>' +
+    (c.ket ? '<div style="font-size:14px;margin-top:2px">' + esc(c.ket) + '</div>' : '') + '</div>' +
+    (c.hapus ? '<button class="link" data-hapus="' + esc(c.id) + '">Hapus</button>' : '') + '</div>';
+}
+
+/* ---------- Penilaian ---------- */
+async function muatDaftarNilai() {
+  const el = $('#kList'); if (!el) return;
+  el.innerHTML = '<div class="loading"><div class="spin d"></div>Memuat...</div>';
+  try {
+    const j = await api('nilaiDaftar', { periode: kPeriode });
+    if (!$('#kList')) return;
+    $('#kList').innerHTML = j.data.length ? j.data.map(x =>
+      '<div class="item"><div class="f"><div class="t">' + esc(x.nama) + '</div><div class="small">' + esc(JABN[x.jabatan]) +
+      (x.status ? ' · ' + esc(x.status) + ' · nilai ' + fmtN(x.total) : ' · belum dinilai') + (x.ujian !== null ? ' · ujian ' + fmtN(x.ujian) : '') + '</div></div>' +
+      chipPred(x.status === 'Final' ? x.predikat : '') + '<button class="link" data-nilai="' + esc(x.nama) + '">' + (x.status ? 'Buka' : 'Nilai') + '</button></div>').join('')
+      : '<div class="small" style="margin-top:8px">Belum ada karyawan yang bisa dinilai. ' + (K.admin ? 'Isi jabatan lewat kartu "Jabatan karyawan" di bawah.' : 'Hubungi admin.') + '</div>';
+    $('#kList').querySelectorAll('[data-nilai]').forEach(b => b.onclick = () => formNilai(b.dataset.nilai));
+  } catch (e) { if ($('#kList')) $('#kList').innerHTML = '<div class="small" style="color:var(--red)">' + esc(e.message) + '</div>'; }
+}
+
+// Pratinjau di HP; server menghitung ulang saat disimpan.
+function hitungLokal(jk, skor, D) {
+  let sumW = 0, sum = 0; const kurang = [];
+  K.aspek.forEach(a => {
+    const w = a.bobot[jk]; if (!w) return;
+    let v = null;
+    if (a.k === 'disiplin') v = D.disiplin ? D.disiplin.nilai : null;
+    else if (a.k === 'ujian') v = D.ujian ? D.ujian.nilai : null;
+    else if (skor[a.k]) v = skor[a.k] * 25; else kurang.push(a.nama);
+    if (v !== null && v !== undefined) { sumW += w; sum += w * v; }
+  });
+  const o = { total: sumW ? Math.round(sum / sumW * 10) / 10 : null, kurang, predikat: '', akhir: 0, rp: 0, tingkat: 0, loyal: 0, naik: 0 };
+  if (o.total === null) return o;
+  const P = D.param, t = K.tingkat.find(t => o.total >= t[0]) || K.tingkat[K.tingkat.length - 1];
+  o.predikat = t[1] + (P.gugur.length ? ' (bonus gugur)' : '');
+  o.tingkat = P.gugur.length ? 0 : t[2];
+  o.loyal = o.tingkat ? P.loyal : 0;
+  o.naik = !P.gugur.length && P.prevTotal !== null && o.total - P.prevTotal >= 10 ? P.naikPct : 0;
+  o.akhir = Math.round((o.tingkat * (1 + o.loyal / 100) + o.naik) * 10) / 10;
+  o.rp = P.penuh ? Math.round(P.penuh * o.akhir / 100 / 1000) * 1000 : 0;
+  return o;
+}
+
+async function formNilai(nama) {
+  busy('Memuat data ' + nama + '...');
+  let D;
+  try { D = await api('nilaiDetail', { target: nama, periode: kPeriode }); } catch (e) { closeModal(); return alertBox('Gagal', esc(e.message)); }
+  formNilaiData(D);
+}
+function formNilaiData(D) {
+  const skor = Object.assign({}, D.skor), dis = D.disiplin, P = D.param, kunci = D.kunci;
+  const manual = K.aspek.filter(a => !a.auto && a.bobot[D.jabatan]);
+  modal('<h3>' + esc(D.nama) + '</h3><div class="small">' + esc(D.jabatanNama) + ' · ' + esc(D.label) + (D.status ? ' · <b>' + esc(D.status) + '</b>' + (D.penilaiTerakhir ? ' oleh ' + esc(D.penilaiTerakhir) : '') : '') + '</div>' +
+    (kunci ? '<div class="banner" style="margin-top:10px">Penilaian sudah final. Hanya admin yang bisa mengubah.</div>' : '') +
+    (P.gugur.length ? '<div class="err">Ada pelanggaran kejujuran terbukti di triwulan ini → bonus gugur.<br>' + P.gugur.map(esc).join('<br>') + '</div>' : '') +
+    '<div class="dateHead" style="margin-left:0">Data otomatis</div>' +
+    '<div class="kv"><span>Kedisiplinan</span><span>' + (dis && dis.nilai !== null ? fmtN(dis.nilai) : 'belum ada absen') + '</span></div>' +
+    (dis && dis.hadir ? '<div class="small" style="margin:-4px 0 6px">' + dis.hadir + ' hari masuk · terlambat ' + dis.telat + 'x (' + dis.telatMenit + ' menit) · pulang awal ' + dis.awal + 'x · tanpa absen pulang ' + dis.tanpaPulang + 'x' +
+      (dis.luar ? ' · di luar lokasi ' + dis.luar + 'x' : '') + (dis.palsu ? ' · GPS palsu ' + dis.palsu + 'x' : '') + '</div>' : '') +
+    '<div class="kv"><span>Ujian tertulis</span><span>' + (D.ujian ? fmtN(D.ujian.nilai) + ' (' + D.ujian.benar + '/' + D.ujian.jumlah + ')' : 'belum ujian') + '</span></div>' +
+    '<div class="kv"><span>Masa kerja</span><span>' + (P.tahun ? P.tahun + ' tahun → loyalitas +' + P.loyal + '%' : 'belum diisi / < 1 tahun') + '</span></div>' +
+    '<div class="kv"><span>Nilai triwulan lalu</span><span>' + (P.prevTotal !== null ? fmtN(P.prevTotal) : '–') + '</span></div>' +
+    '<div class="dateHead" style="margin-left:0">Catatan kejadian (' + D.catatan.length + ')</div>' +
+    (D.catatan.length ? D.catatan.map(c => itemCatatan(c)).join('') : '<div class="small">Tidak ada catatan di triwulan ini.</div>') +
+    (kunci ? '' : '<button class="link" id="nCatat">+ Catat kejadian untuk ' + esc(D.nama) + '</button>') +
+    '<div class="dateHead" style="margin-left:0">Skor (1–4)</div>' +
+    manual.map(a => '<div class="asp"><b>' + esc(a.nama) + '</b> <span class="small">· bobot ' + a.bobot[D.jabatan] + '%</span><div class="small">' + esc(a.ind) + '</div>' +
+      '<div class="seg" data-a="' + a.k + '">' + [1, 2, 3, 4].map(v => '<button data-v="' + v + '"' + (skor[a.k] === v ? ' class="on"' : '') + (kunci ? ' disabled' : '') + '>' + v + '<small>' + SKALA[v - 1] + '</small></button>').join('') + '</div></div>').join('') +
+    '<label for="nKel">Kelebihan (akan dibaca karyawan)</label><textarea id="nKel" class="inp" rows="2" maxlength="500"' + (kunci ? ' disabled' : '') + '>' + esc(D.kelebihan) + '</textarea>' +
+    '<label for="nSar">Saran perbaikan (akan dibaca karyawan)</label><textarea id="nSar" class="inp" rows="2" maxlength="500"' + (kunci ? ' disabled' : '') + '>' + esc(D.saran) + '</textarea>' +
+    '<div class="card" style="background:var(--teal-l);margin:14px 0 0" id="nPrev"></div>' +
+    '<div id="nErr" class="err hidden"></div>' +
+    (kunci ? '<button class="btn ghost block" id="nTutup" style="margin-top:12px">Tutup</button>'
+      : '<div class="row" style="margin-top:12px"><button class="btn ghost f" id="nDraft">Simpan draf</button><button class="btn primary f" id="nFinal">Finalkan</button></div>'));
+  const prev = () => {
+    const o = hitungLokal(D.jabatan, skor, D);
+    $('#nPrev').innerHTML = '<div class="row"><div class="big">' + fmtN(o.total) + '</div><div class="f">' + chipPred(o.predikat) + '</div></div>' +
+      '<div class="small" style="margin-top:6px">' + (o.kurang.length ? 'Belum diisi: ' + esc(o.kurang.join(', ')) + '.' :
+        'Bonus ' + fmtN(o.akhir) + '%' + (o.rp ? ' = ' + rupiah(o.rp) : '') + ' (tingkat ' + o.tingkat + '%' + (o.loyal ? ' + loyalitas ' + o.loyal + '%' : '') + (o.naik ? ' + peningkatan ' + o.naik + '%' : '') + ')' +
+        (P.penuh ? '' : '<br>Nominal Rp muncul setelah "Bonus Penuh ' + esc(D.jabatanNama) + ' (Rp)" diisi di tab Pengaturan Sheet.')) +
+      (!D.ujian || !dis || dis.nilai === null ? '<br>Aspek otomatis yang belum ada datanya tidak dihitung; bobotnya dibagi ke aspek lain.' : '') + '</div>';
+  };
+  prev();
+  $('#sheet').querySelectorAll('.seg').forEach(g => g.querySelectorAll('button').forEach(b => b.onclick = () => {
+    skor[g.dataset.a] = +b.dataset.v;
+    g.querySelectorAll('button').forEach(x => x.classList.toggle('on', x === b));
+    prev();
+  }));
+  if (kunci) { $('#nTutup').onclick = closeModal; return; }
+  $('#nCatat').onclick = () => formCatatan(D.nama);
+  const simpan = async final => {
+    const o = hitungLokal(D.jabatan, skor, D);
+    if (final && o.kurang.length) return showErr($('#nErr'), 'Lengkapi skor: ' + o.kurang.join(', ') + '.');
+    if (final && !(await confirmBox('Finalkan penilaian ' + D.nama + '?', 'Nilai <b>' + fmtN(o.total) + '</b> (' + esc(o.predikat) + '), bonus ' + fmtN(o.akhir) + '%.<br>Setelah final, hasil, kelebihan dan saran bisa dilihat ' + esc(D.nama) + ' di aplikasinya.', 'Finalkan'))) return formNilaiUlang();
+    busy('Menyimpan...');
+    try {
+      await api('nilaiSimpan', { target: D.nama, periode: D.periode, skor, kelebihan: D.kelebihan, saran: D.saran, final });
+      closeModal(); toast(final ? 'Penilaian ' + D.nama + ' sudah final.' : 'Draf disimpan.'); muatDaftarNilai();
+    } catch (e) { closeModal(); alertBox('Gagal menyimpan', esc(e.message)); }
+  };
+  // confirmBox memakai lembar yang sama: isian disimpan di D agar tidak hilang bila batal.
+  const formNilaiUlang = () => { D.skor = skor; formNilaiData(D); };
+  $('#sheet').querySelectorAll('.seg button').forEach(b => b.addEventListener('click', () => { D.skor = skor; }));
+  $('#nDraft').onclick = () => { D.kelebihan = $('#nKel').value; D.saran = $('#nSar').value; simpan(false); };
+  $('#nFinal').onclick = () => { D.kelebihan = $('#nKel').value; D.saran = $('#nSar').value; simpan(true); };
+}
+
+/* ---------- Ujian (admin/penilai) ---------- */
+async function muatUjianAdmin() {
+  const el = $('#uAdmin'); if (!el) return;
+  try { gambarUjianAdmin(await api('ujianHasil', { periode: kPeriode })); }
+  catch (e) { if ($('#uAdmin')) $('#uAdmin').innerHTML = '<div class="small" style="color:var(--red)">' + esc(e.message) + '</div>'; }
+}
+function gambarUjianAdmin(j) {
+  const el = $('#uAdmin'); if (!el) return;
+  const kini = j.periode === K.periode;
+  el.innerHTML = (K.admin && kini ?
+    '<div class="small" style="margin:4px 0 6px">Bank soal aktif: AA ' + j.bankJumlah.AA + ' · TTK ' + j.bankJumlah.TTK + ' · Apoteker ' + j.bankJumlah.APT + ' soal (ubah di Sheet tab <i>Bank Soal</i>). Periksa soal bersama apoteker sebelum ujian dibuka.</div>' +
+    '<label style="display:flex;align-items:center;gap:10px;font-weight:600;color:var(--ink);font-size:15px"><input type="checkbox" id="uBuka"' + (j.dibuka ? ' checked' : '') + '> Ujian dibuka untuk karyawan</label>' +
+    '<div class="row"><div class="f"><label for="uJml">Jumlah soal</label><input id="uJml" class="inp" type="number" min="5" max="50" value="' + j.jumlah + '"></div>' +
+    '<div class="f"><label for="uDur">Durasi (menit)</label><input id="uDur" class="inp" type="number" min="5" max="120" value="' + j.durasi + '"></div></div>' +
+    '<button class="btn light block" id="uSimpan" style="margin-top:10px">Simpan pengaturan ujian</button>' : '') +
+    '<div class="dateHead" style="margin-left:0">Hasil · ' + esc(j.label) + '</div>' +
+    (j.data.length ? j.data.map(x => '<div class="item"><div class="f"><div class="t">' + esc(x.nama) + '</div><div class="small">' + esc(JABN[x.jabatan]) + ' · ' +
+      (x.status === 'Selesai' ? 'nilai <b>' + fmtN(x.nilai) + '</b> (' + x.benar + '/' + x.jumlah + ')' : x.status === 'Berlangsung' ? 'sedang ujian' : 'belum ujian') + '</div></div>' +
+      (K.admin && kini && x.status ? '<button class="link" data-ureset="' + esc(x.nama) + '">Ulang</button>' : '') + '</div>').join('') : '<div class="small">Belum ada peserta.</div>');
+  if ($('#uSimpan')) $('#uSimpan').onclick = async () => {
+    const b = $('#uSimpan'); b.disabled = true; b.textContent = 'Menyimpan...';
+    try { gambarUjianAdmin(await api('ujianAtur', { dibuka: $('#uBuka').checked, jumlah: +$('#uJml').value, durasi: +$('#uDur').value, periode: kPeriode })); toast('Pengaturan ujian disimpan.'); }
+    catch (e) { toast(e.message); b.disabled = false; b.textContent = 'Simpan pengaturan ujian'; }
+  };
+  el.querySelectorAll('[data-ureset]').forEach(b => b.onclick = async () => {
+    const nm = b.dataset.ureset;
+    if (!(await confirmBox('Ulang ujian ' + nm + '?', 'Hasil ujian ' + esc(nm) + ' triwulan ini dihapus dan ia bisa ujian lagi dengan soal acak baru. Pakai hanya bila ada kendala (HP mati, sinyal putus).', 'Hapus & ulang'))) return;
+    try { gambarUjianAdmin(await api('ujianReset', { target: nm, periode: kPeriode })); toast('Ujian ' + nm + ' bisa diulang.'); } catch (e) { toast(e.message); }
+  });
+}
+
+/* ---------- Layar ujian (karyawan) ---------- */
+let UJ = null;
+async function mulaiUjian() {
+  const U = K.ujian;
+  if (!(U.hasil && U.hasil.status === 'Berlangsung') && !(await confirmBox('Mulai ujian?',
+    U.jumlah + ' soal · ' + U.durasi + ' menit.<br><br>• Hanya <b>1 kali kesempatan</b>.<br>• Waktu tetap berjalan walau aplikasi ditutup.<br>• Pastikan baterai & internet cukup.<br>• Kerjakan sendiri, tanpa membuka buku atau bertanya.', 'Mulai'))) return;
+  busy('Menyiapkan soal...');
+  try {
+    const j = await api('ujianMulai');
+    closeModal();
+    if (j.selesai) { await alertBox('Ujian sudah selesai', 'Nilai Anda: <b>' + fmtN(j.hasil.nilai) + '</b> (' + j.hasil.benar + '/' + j.hasil.jumlah + ' benar).'); return renderKinerja(); }
+    UJ = { periode: j.periode, soal: j.soal, jawab: LS.get('uj_' + j.periode + '_' + user.nama, {}), akhir: Date.now() + j.sisa * 1000, idx: 0, kirim: false };
+    bukaUjian();
+  } catch (e) { closeModal(); alertBox('Tidak bisa memulai ujian', esc(e.message)); }
+}
+function bukaUjian() {
+  if (!$('#scrUjian')) document.body.insertAdjacentHTML('beforeend', '<section id="scrUjian" class="ujian"></section>');
+  gambarSoal();
+  clearInterval(UJ.timer); UJ.timer = setInterval(tickUjian, 1000); tickUjian();
+}
+function tutupUjian() { if (UJ) clearInterval(UJ.timer); const s = $('#scrUjian'); if (s) s.remove(); UJ = null; }
+function gambarSoal() {
+  const n = UJ.soal.length, q = UJ.soal[UJ.idx], dijawab = Object.keys(UJ.jawab).filter(id => UJ.soal.some(s => s.id === id)).length;
+  $('#scrUjian').innerHTML = '<div class="ujTop"><div class="f" style="flex:1"><b>Ujian ' + esc(JABN[K.jabatan] || '') + '</b><div class="small">Soal ' + (UJ.idx + 1) + ' dari ' + n + ' · dijawab ' + dijawab + '</div></div><div class="ujTimer" id="ujTimer">--:--</div></div>' +
+    '<div class="wrap"><div class="card"><div style="font-size:16px;line-height:1.5;font-weight:600">' + esc(q.soal) + '</div>' +
+    q.opsi.map((o, i) => { const L = 'ABCD'[i]; return o ? '<button class="opt' + (UJ.jawab[q.id] === L ? ' on' : '') + '" data-o="' + L + '"><b>' + L + '</b><span>' + esc(o) + '</span></button>' : ''; }).join('') + '</div>' +
+    '<div class="row" style="margin-bottom:12px"><button class="btn ghost f" id="ujPrev"' + (UJ.idx ? '' : ' disabled') + '>‹ Sebelumnya</button><button class="btn light f" id="ujNext"' + (UJ.idx < n - 1 ? '' : ' disabled') + '>Berikutnya ›</button></div>' +
+    '<div class="card"><div class="small" style="margin-bottom:8px">Lompat ke soal</div><div class="nums">' + UJ.soal.map((s, i) => '<button data-i="' + i + '" class="' + (UJ.jawab[s.id] ? 'on' : '') + (i === UJ.idx ? ' cur' : '') + '">' + (i + 1) + '</button>').join('') + '</div></div>' +
+    '<button class="btn primary block" id="ujKirim">Kirim jawaban</button><div id="ujErr" class="err hidden"></div><div style="height:24px"></div></div>';
+  const S = $('#scrUjian');
+  S.querySelectorAll('[data-o]').forEach(b => b.onclick = () => {
+    UJ.jawab[q.id] = b.dataset.o; LS.set('uj_' + UJ.periode + '_' + user.nama, UJ.jawab);
+    if (UJ.idx < n - 1) setTimeout(() => { UJ.idx++; gambarSoal(); S.scrollTo(0, 0); }, 180); else gambarSoal();
+  });
+  S.querySelectorAll('[data-i]').forEach(b => b.onclick = () => { UJ.idx = +b.dataset.i; gambarSoal(); S.scrollTo(0, 0); });
+  $('#ujPrev').onclick = () => { UJ.idx--; gambarSoal(); };
+  $('#ujNext').onclick = () => { UJ.idx++; gambarSoal(); };
+  $('#ujKirim').onclick = () => kirimUjian(false);
+  tickUjian();
+}
+function tickUjian() {
+  if (!UJ || !$('#ujTimer')) return;
+  const s = Math.max(0, Math.round((UJ.akhir - Date.now()) / 1000));
+  const t = $('#ujTimer'); t.textContent = Math.floor(s / 60) + ':' + ('0' + (s % 60)).slice(-2); t.classList.toggle('low', s < 120);
+  if (s <= 0 && !UJ.kirim) kirimUjian(true);
+}
+async function kirimUjian(otomatis) {
+  if (!UJ || UJ.kirim) return;
+  const kosong = UJ.soal.filter(s => !UJ.jawab[s.id]).length;
+  if (!otomatis && !(await confirmBox('Kirim jawaban?', (kosong ? '<b>' + kosong + ' soal belum dijawab.</b><br>' : 'Semua soal sudah dijawab.<br>') + 'Setelah dikirim, jawaban tidak bisa diubah.', 'Kirim'))) return;
+  if (!UJ) return;
+  UJ.kirim = true; clearInterval(UJ.timer);
+  busy(otomatis ? 'Waktu habis. Mengirim jawaban...' : 'Mengirim jawaban...');
+  try {
+    const j = await api('ujianKirim', { periode: UJ.periode, jawaban: UJ.jawab });
+    closeModal();
+    LS.del('uj_' + UJ.periode + '_' + user.nama);
+    tutupUjian();
+    await alertBox('Ujian selesai', 'Nilai Anda: <b>' + fmtN(j.hasil.nilai) + '</b><br>' + j.hasil.benar + ' dari ' + j.hasil.jumlah + ' soal benar.' + (j.telat ? '<br><br>Jawaban terkirim setelah batas waktu sehingga tidak dihitung. Hubungi admin.' : ''));
+    renderKinerja();
+  } catch (e) {
+    closeModal();
+    UJ.kirim = false;
+    if (Date.now() < UJ.akhir) { UJ.timer = setInterval(tickUjian, 1000); }
+    showErr($('#ujErr'), (e.net ? 'Gagal terkirim karena tidak ada internet. ' : e.message + ' ') + 'Jawaban tersimpan di HP. Tekan "Kirim jawaban" lagi setelah internet tersambung (paling lambat 10 menit setelah waktu habis).');
+  }
+}
+
+/* ================= Mulai ================= */
+// Peringatan bila halaman ditutup/di-refresh saat ujian berjalan (ujian tetap bisa dilanjutkan dari tombol Lanjutkan).
+window.addEventListener('beforeunload', e => { if (UJ && !UJ.kirim) { e.preventDefault(); e.returnValue = ''; } });
+(function init() {
+  if (!user) return keLogin();
+  masuk();
+})();
+</script>
+<script>if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(function(){});</script>
+</body>
+</html>
