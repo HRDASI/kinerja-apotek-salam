@@ -330,12 +330,14 @@ async function renderKinerja() {
       '<div id="kList"><div class="loading"><div class="spin d"></div>Memuat...</div></div></div>' +
       '<div class="card"><b>Ujian tertulis</b><div id="uAdmin"><div class="loading"><div class="spin d"></div>Memuat...</div></div></div>';
   }
+  if (K.admin) h += '<div class="card"><b>Bank soal</b><div class="small" style="margin:4px 0 10px">Lihat, tambah, ubah, dan aktif/nonaktifkan soal ujian. Ganti soal tiap triwulan dengan mengaktifkan paket baru dan menonaktifkan paket lama.</div><button class="btn light block" id="kSoal">Kelola bank soal</button></div>';
   if (K.admin) h += '<div class="card"><b>Jabatan karyawan</b><div class="small" style="margin:4px 0 10px">Nama otomatis dari aplikasi Absensi. Atur siapa saja yang dinilai (Asisten Apoteker / TTK / Apoteker) dan tanggal mulai kerjanya.</div><button class="btn light block" id="kJab">Atur jabatan & mulai kerja</button></div>';
   h += '<div class="card small" style="line-height:1.55"><b style="color:var(--ink)">Cara penilaian</b><br>Dinilai per triwulan (3 bulan). Nilai 0–100 dari: ketelitian, keramahan, stok & kas, kejujuran, kerja tim, ujian tertulis, dan kedisiplinan (otomatis dari absensi). ' +
     'Bonus: ' + K.tingkat.filter(t => t[2]).map(t => '≥' + t[0] + ' ' + t[1] + ' ' + t[2] + '%').join(' · ') + '. Ada tambahan bonus peningkatan (nilai naik ≥10 poin) dan bonus loyalitas (masa kerja). Pelanggaran kejujuran yang terbukti membuat bonus triwulan itu gugur.</div>';
   el.innerHTML = h;
   if ($('#uMulai')) $('#uMulai').onclick = mulaiUjian;
   if ($('#kJab')) $('#kJab').onclick = formJabatan;
+  if ($('#kSoal')) $('#kSoal').onclick = () => bukaBankSoal();
   el.querySelectorAll('[data-hasil]').forEach(b => b.onclick = () => detailHasilSaya(K.hasil[+b.dataset.hasil]));
   if (K.penilai) {
     $('#kCatat').onclick = () => formCatatan();
@@ -628,6 +630,90 @@ async function kirimUjian(otomatis) {
     if (Date.now() < UJ.akhir) { UJ.timer = setInterval(tickUjian, 1000); }
     showErr($('#ujErr'), (e.net ? 'Gagal terkirim karena tidak ada internet. ' : e.message + ' ') + 'Jawaban tersimpan di HP. Tekan "Kirim jawaban" lagi setelah internet tersambung (paling lambat 10 menit setelah waktu habis).');
   }
+}
+
+/* ================= Bank soal (admin) ================= */
+const JABS = { AA: 'AA', TTK: 'TTK', APT: 'Apoteker', ALL: 'Semua' };
+let SB = null; // {data, paket, dibuka, f: {jab, paket, status, cari}}
+async function bukaBankSoal() {
+  busy('Memuat bank soal...');
+  try { const j = await api('soalList'); SB = Object.assign(SB || { f: { jab: '', paket: '', status: '', cari: '' } }, j); gambarBankSoal(); }
+  catch (e) { closeModal(); alertBox('Gagal', esc(e.message)); }
+}
+function gambarBankSoal() {
+  const f = SB.f, q = f.cari.toLowerCase();
+  const list = SB.data.filter(s => (!f.jab || s.jab === f.jab) && (!f.paket || s.paket === f.paket) &&
+    (!f.status || (f.status === 'aktif') === s.aktif) && (!q || (s.soal + ' ' + s.opsi.join(' ') + ' ' + s.id).toLowerCase().includes(q)));
+  const hit = jab => SB.data.filter(s => s.aktif && (s.jab === jab || s.jab === 'ALL')).length;
+  const sel = (id, val, opts) => '<select id="' + id + '" class="inp" style="padding:9px 10px">' + opts.map(o => '<option value="' + esc(o[0]) + '"' + (o[0] === val ? ' selected' : '') + '>' + esc(o[1]) + '</option>').join('') + '</select>';
+  const pk = f.paket ? SB.data.filter(s => s.paket === f.paket) : [];
+  modal('<h3>Bank soal</h3>' +
+    '<div class="small">Soal aktif per ujian: AA ' + hit('AA') + ' · TTK ' + hit('TTK') + ' · Apoteker ' + hit('APT') + ' (termasuk soal "Semua").</div>' +
+    (SB.dibuka ? '<div class="banner" style="margin:10px 0 0"><span>Ujian sedang <b>dibuka</b>. Soal hanya bisa dilihat; tutup ujian dulu untuk mengubah.</span></div>' : '') +
+    '<div class="row" style="margin-top:10px">' +
+      '<div class="f">' + sel('sbJab', f.jab, [['', 'Semua jabatan'], ['AA', 'AA'], ['TTK', 'TTK'], ['APT', 'Apoteker'], ['ALL', 'Soal "Semua"']]) + '</div>' +
+      '<div class="f">' + sel('sbPaket', f.paket, [['', 'Semua paket']].concat(SB.paket.map(p => [p, 'Paket ' + p]))) + '</div></div>' +
+    '<div class="row" style="margin-top:8px"><div class="f">' + sel('sbStatus', f.status, [['', 'Aktif & nonaktif'], ['aktif', 'Aktif saja'], ['non', 'Nonaktif saja']]) + '</div>' +
+      '<div class="f"><input id="sbCari" class="inp" style="padding:9px 10px" placeholder="Cari kata..." value="' + esc(f.cari) + '"></div></div>' +
+    (f.paket && !SB.dibuka ? '<div class="row" style="margin-top:8px"><button class="btn light f" id="sbOn" style="padding:10px">Aktifkan paket ' + esc(f.paket) + '</button><button class="btn ghost f" id="sbOff" style="padding:10px">Nonaktifkan paket</button></div>' +
+      '<div class="small" style="margin-top:4px">' + pk.filter(s => s.aktif).length + ' dari ' + pk.length + ' soal paket ini aktif.</div>' : '') +
+    (SB.dibuka ? '' : '<button class="btn primary block" id="sbTambah" style="margin-top:10px">+ Tambah soal</button>') +
+    '<div class="dateHead" style="margin-left:0">' + list.length + ' soal</div>' +
+    (list.length ? list.map(s => '<div class="item" style="align-items:flex-start;cursor:pointer" data-sid="' + esc(s.id) + '"><div class="f">' +
+      '<div class="small"><b>' + esc(s.id) + '</b> · ' + esc(JABS[s.jab] || '?') + (s.paket ? ' · paket ' + esc(s.paket) : '') + ' · kunci ' + esc(s.kunci) + '</div>' +
+      '<div style="font-size:14px;line-height:1.4;margin-top:2px">' + esc(s.soal) + '</div></div>' +
+      '<span class="chip ' + (s.aktif ? 'ok' : 'warn') + '">' + (s.aktif ? 'Aktif' : 'Nonaktif') + '</span></div>').join('') : '<div class="small">Tidak ada soal yang cocok.</div>') +
+    '<button class="btn ghost block" id="sbTutup" style="margin-top:12px">Tutup</button>');
+  const ubahF = (k, v) => { SB.f[k] = v; gambarBankSoal(); };
+  $('#sbJab').onchange = e => ubahF('jab', e.target.value);
+  $('#sbPaket').onchange = e => ubahF('paket', e.target.value);
+  $('#sbStatus').onchange = e => ubahF('status', e.target.value);
+  let tCari = null;
+  $('#sbCari').oninput = e => { clearTimeout(tCari); tCari = setTimeout(() => { ubahF('cari', e.target.value); const c = $('#sbCari'); c.focus(); c.setSelectionRange(c.value.length, c.value.length); }, 400); };
+  $('#sbTutup').onclick = () => { closeModal(); renderKinerja(); };
+  if ($('#sbTambah')) $('#sbTambah').onclick = () => formSoal(null);
+  $('#sheet').querySelectorAll('[data-sid]').forEach(el => el.onclick = () => formSoal(SB.data.find(s => s.id === el.dataset.sid)));
+  const paket = async aktif => {
+    const n = pk.length;
+    if (!(await confirmBox((aktif ? 'Aktifkan' : 'Nonaktifkan') + ' paket ' + f.paket + '?', n + ' soal di paket ini akan ' + (aktif ? '<b>dipakai</b>' : '<b>tidak dipakai</b>') + ' di ujian berikutnya.' + (aktif ? '<br><br>Pastikan soal sudah diperiksa.' : ''), aktif ? 'Aktifkan' : 'Nonaktifkan'))) return gambarBankSoal();
+    busy('Menyimpan...');
+    try { Object.assign(SB, await api('soalPaket', { paket: f.paket, aktif })); toast('Paket ' + f.paket + (aktif ? ' diaktifkan.' : ' dinonaktifkan.')); }
+    catch (e) { toast(e.message, 5000); }
+    gambarBankSoal();
+  };
+  if ($('#sbOn')) { $('#sbOn').onclick = () => paket(true); $('#sbOff').onclick = () => paket(false); }
+}
+function formSoal(s) {
+  const baru = !s, kunci = SB.dibuka;
+  s = s || { id: '', jab: SB.f.jab || 'AA', soal: '', opsi: ['', '', '', ''], kunci: '', aktif: true, pembahasan: '', paket: SB.f.paket || '' };
+  const dis = kunci ? ' disabled' : '';
+  modal('<h3>' + (baru ? 'Tambah soal' : 'Soal ' + esc(s.id)) + '</h3>' +
+    '<div class="row"><div class="f"><label for="fsJab">Jabatan</label><select id="fsJab" class="inp"' + dis + '>' +
+      Object.keys(JABS).map(k => '<option value="' + k + '"' + (s.jab === k ? ' selected' : '') + '>' + JABS[k] + '</option>').join('') + '</select></div>' +
+    '<div class="f"><label for="fsPaket">Paket</label><input id="fsPaket" class="inp" maxlength="30" list="fsPaketL" value="' + esc(s.paket) + '"' + dis + ' placeholder="mis. 2027-T2">' +
+      '<datalist id="fsPaketL">' + SB.paket.map(p => '<option value="' + esc(p) + '">').join('') + '</datalist></div></div>' +
+    '<label for="fsSoal">Pertanyaan</label><textarea id="fsSoal" class="inp" rows="3" maxlength="500"' + dis + '>' + esc(s.soal) + '</textarea>' +
+    'ABCD'.split('').map((L, i) => '<label for="fsO' + i + '">Pilihan ' + L + '</label><input id="fsO' + i + '" class="inp" maxlength="200" value="' + esc(s.opsi[i]) + '"' + dis + '>').join('') +
+    '<label>Kunci jawaban</label><div class="seg" id="fsKunci">' + 'ABCD'.split('').map(L => '<button data-k="' + L + '"' + (s.kunci === L ? ' class="on"' : '') + dis + '>' + L + '</button>').join('') + '</div>' +
+    '<label for="fsBahas">Pembahasan (opsional, tidak ditampilkan ke karyawan)</label><input id="fsBahas" class="inp" maxlength="300" value="' + esc(s.pembahasan) + '"' + dis + '>' +
+    '<label style="display:flex;align-items:center;gap:10px;font-weight:600;color:var(--ink);font-size:15px;margin-top:14px"><input type="checkbox" id="fsAktif"' + (s.aktif ? ' checked' : '') + dis + '> Aktif (dipakai di ujian)</label>' +
+    '<div id="fsErr" class="err hidden"></div>' +
+    (kunci ? '<div class="banner" style="margin-top:12px">Ujian sedang dibuka, soal tidak bisa diubah.</div><button class="btn ghost block" id="fsBatal">Kembali</button>'
+      : '<div class="row" style="margin-top:14px"><button class="btn ghost f" id="fsBatal">Kembali</button><button class="btn primary f" id="fsSimpan">Simpan</button></div>'));
+  let pilih = s.kunci;
+  $('#fsKunci').querySelectorAll('button').forEach(b => b.onclick = () => { pilih = b.dataset.k; $('#fsKunci').querySelectorAll('button').forEach(x => x.classList.toggle('on', x === b)); });
+  $('#fsBatal').onclick = gambarBankSoal;
+  if (kunci) return;
+  $('#fsSimpan').onclick = async () => {
+    const d = { id: s.id, jab: $('#fsJab').value, paket: $('#fsPaket').value.trim(), soal: $('#fsSoal').value.trim(),
+      opsi: [0, 1, 2, 3].map(i => $('#fsO' + i).value.trim()), kunci: pilih, pembahasan: $('#fsBahas').value.trim(), aktif: $('#fsAktif').checked };
+    if (d.soal.length < 5) return showErr($('#fsErr'), 'Pertanyaan terlalu pendek.');
+    if (d.opsi.some(o => !o)) return showErr($('#fsErr'), 'Isi keempat pilihan jawaban A–D.');
+    if (!d.kunci) return showErr($('#fsErr'), 'Pilih kunci jawaban.');
+    const b = $('#fsSimpan'); b.disabled = true; b.textContent = 'Menyimpan...';
+    try { const j = await api('soalSimpan', { data: d }); Object.assign(SB, j); toast('Soal ' + j.disimpan + ' disimpan.'); gambarBankSoal(); }
+    catch (e) { showErr($('#fsErr'), e.message); b.disabled = false; b.textContent = 'Simpan'; }
+  };
 }
 
 /* ================= Mulai ================= */
