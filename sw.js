@@ -1,4 +1,4 @@
-const C = 'kinerja-2.1';
+const C = 'kinerja-2.2';
 const FILES = ['./', 'index.html', 'img/logo.png', 'img/ikon-180.png', 'img/ikon-192.png', 'manifest.webmanifest'];
 self.addEventListener('install', e => { e.waitUntil(caches.open(C).then(c => c.addAll(FILES.map(f => new Request(f, { cache: 'reload' })))).then(() => self.skipWaiting())); });
 self.addEventListener('activate', e => {
