@@ -172,6 +172,73 @@ h1,h2,h3{margin:0}
 .nums button{padding:9px 0;border-radius:9px;background:#fff;border:1.5px solid var(--line);font-weight:600;color:var(--ink)}
 .nums button.on{background:var(--teal-l);border-color:var(--teal)}
 .nums button.cur{border-color:var(--orange);box-shadow:0 0 0 1px var(--orange)}
+/* v2.1: dashboard & grafik */
+.hero{background:linear-gradient(135deg,#0FADA6 0%,#0B7F7A 100%);color:#fff;border-radius:20px;padding:16px;margin-bottom:12px;box-shadow:0 6px 18px rgba(11,127,122,.25);position:relative;overflow:hidden}
+.hero:after{content:"";position:absolute;right:-50px;top:-60px;width:180px;height:180px;border-radius:50%;background:rgba(255,255,255,.08)}
+.hero .hello{font-size:20px}
+.hs{font-size:13px;color:rgba(255,255,255,.85)}
+.hp{font-size:20px;font-weight:700;margin:2px 0 4px}
+.chip.hc{background:rgba(255,255,255,.2);color:#fff}
+.heroN{display:flex;align-items:center;gap:12px;margin-top:10px;position:relative;z-index:1}
+.meter{width:150px;flex:none}
+.upd{display:inline-flex;align-items:center;gap:6px;margin-top:8px;font-size:12px;background:rgba(255,255,255,.18);padding:3px 9px;border-radius:99px}
+.upd.err{background:rgba(209,67,67,.85)}
+.spin.s{width:12px;height:12px;border-width:2px}
+.dl{display:inline-block;font-size:12px;font-weight:700;margin-top:2px}
+.dl.naik{color:var(--green)}.dl.turun{color:var(--red)}.dl.nol{color:var(--mut)}
+.dl.inv{background:rgba(255,255,255,.92);padding:2px 8px;border-radius:99px}
+.ct{font-weight:700;font-size:16px;display:flex;align-items:center;gap:8px}
+.nb{background:var(--orange);color:#fff;border-radius:99px;font-size:12px;padding:1px 8px}
+.todo{border-left:4px solid var(--orange)}
+.todo.ok{border-left-color:var(--green);display:flex;gap:12px;align-items:center}
+.ti{display:flex;gap:12px;align-items:center;width:100%;background:#F7FAFA;border-radius:12px;padding:10px;margin-top:8px;text-align:left;color:var(--ink);font-size:14px}
+.ti.pt{background:var(--orange-l);font-weight:700}
+.ti .ico{width:34px;height:34px}
+.ti .ar{color:var(--mut);font-size:20px}
+.sum.kpi div{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;cursor:pointer;box-shadow:0 1px 2px rgba(0,0,0,.05);padding:12px 6px}
+.sum.kpi b{font-size:26px;line-height:1.1}
+.ring{width:52px;height:52px}
+.kpi4{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
+.kpi4>div{background:#fff;border-radius:14px;padding:12px;box-shadow:0 1px 2px rgba(0,0,0,.05);display:flex;flex-direction:column;gap:2px;min-width:0}
+.kpi4>div.r{flex-direction:row;align-items:center;gap:10px}
+.kpi4 b{font-size:28px;line-height:1.15}
+.dn{display:flex;align-items:center;gap:14px;margin-top:10px}
+.donut{width:120px;flex:none}
+.lgd{flex:1;min-width:0;font-size:13px}
+.lgd div{display:flex;align-items:center;gap:8px;padding:3px 0}
+.lgd i{width:12px;height:12px;border-radius:4px;flex:none}
+.lgd .f{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#3d4a49}
+.lgl{display:flex;flex-wrap:wrap;gap:4px 12px;font-size:12px;color:var(--mut);margin-top:4px}
+.lgl i{display:inline-block;width:14px;height:4px;border-radius:2px;vertical-align:middle;margin-right:5px}
+.chart{margin-top:8px}
+.kosong{background:#F7FAFA;border:1.5px dashed var(--line);border-radius:12px;padding:18px 14px;text-align:center;color:var(--mut);font-size:13px;margin-top:10px}
+.sub{font-size:13px;font-weight:700;color:var(--mut);margin-top:14px}
+.hb{margin-top:6px}
+.hbr{display:grid;grid-template-columns:minmax(0,1.1fr) 1fr 44px;gap:10px;align-items:center;padding:9px 0;border-bottom:1px solid var(--line)}
+.hbr[data-org]{cursor:pointer}
+.hbr:last-child{border-bottom:0}
+.hbl .t{font-weight:600;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hbl .small{font-size:11.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hbt{height:12px;background:#EEF3F3;border-radius:99px;overflow:hidden}
+.hbt i{display:block;height:100%;border-radius:99px}
+.hbv{text-align:right;font-weight:700;font-size:15px}
+.db{margin-top:10px}
+.dbr{display:grid;grid-template-columns:26px 78px 1fr 34px;gap:8px;align-items:center;padding:5px 0;opacity:.75}
+.dbr.on{opacity:1}
+.dbr.on .dbn{font-weight:700;color:var(--ink)}
+.dbk{width:26px;height:26px;border-radius:8px;color:#fff;font-weight:700;display:flex;align-items:center;justify-content:center;font-size:13px}
+.dbn{font-size:13px;color:var(--mut)}
+.dbt{position:relative;height:14px;background:#EEF3F3;border-radius:99px}
+.dbt i{position:absolute;top:0;bottom:0;border-radius:99px}
+.dbt b{position:absolute;left:50%;top:-3px;bottom:-3px;width:2px;margin-left:-1px;background:#B8C4C3}
+.dbv{text-align:right;font-weight:700;font-size:14px}
+.rings{display:grid;grid-template-columns:repeat(auto-fit,minmax(96px,1fr));gap:10px;margin-top:10px;text-align:center}
+.rings .ring{width:64px;height:64px}
+.rn{font-size:13px;font-weight:600;margin-top:2px;line-height:1.25}
+.sk{background:linear-gradient(90deg,#E8EEEE 25%,#F4F7F7 50%,#E8EEEE 75%);background-size:200% 100%;animation:skl 1.2s infinite;border-radius:16px;margin-bottom:12px}
+.sk.hero{height:170px;box-shadow:none}
+.sk.hero:after{display:none}
+@keyframes skl{to{background-position:-200% 0}}
 </style>
 <meta name="theme-color" content="#0FADA6">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -296,6 +363,7 @@ async function muatNama() {
   } catch (e) { sel.innerHTML = '<option value="">Gagal memuat nama</option>'; showErr($('#loginErr'), e.message); }
 }
 function keLogin(pesan) {
+  if (user) LS.del(kunciB()); // data Beranda yang tersimpan di HP ikut dihapus saat keluar
   user = null; LS.del('user'); show('#scrLogin'); $('#lPin').value = ''; muatNama();
   if (pesan) setTimeout(() => showErr($('#loginErr'), pesan), 50);
 }
@@ -885,62 +953,220 @@ function rawanHTML(P, maks) {
 }
 function discHTML(profil, skor, info) {
   if (!profil) return '<div class="small">Belum ada hasil.</div>';
-  let h = '<div class="row" style="margin-top:8px"><div class="big">' + esc(profil) + '</div><div class="small f">' + profil.split('').map(k => DISC_NAMA[k]).join(' + ') + '</div></div>';
+  let h = '<div class="row" style="margin-top:8px"><div class="big">' + profil.split('').map(k => '<span style="color:' + DISC_W[k] + '">' + esc(k) + '</span>').join('') + '</div><div class="small f">' + profil.split('').map(k => DISC_NAMA[k]).join(' + ') + '</div></div>';
   if (skor && 'DISC'.split('').every(k => Math.abs(skor[k]) <= 2)) h += '<div class="banner" style="margin:8px 0 0">Profil datar (semua skor −2 sampai +2). Sebaiknya dikonfirmasi lewat obrolan empat mata atau tes diulang.</div>';
-  if (skor) h += '<div class="disc" style="margin-top:8px">' + 'DISC'.split('').map(k => '<div' + (profil[0] === k ? ' class="on"' : '') + '><b>' + (skor[k] > 0 ? '+' : '') + skor[k] + '</b><span class="small">' + k + ' · ' + DISC_NAMA[k] + '</span></div>').join('') + '</div>';
+  if (skor) h += discBatang(skor, profil);
   if (info && DISCI) h += profil.split('').map(k => { const d = DISCI[k]; return '<div style="margin-top:10px;font-size:14px;line-height:1.5"><b>' + k + ' · ' + esc(d.nama) + ':</b> ' + esc(d.sifat) +
     '<div class="small"><b>Cocok untuk:</b> ' + esc(d.cocok) + '<br><b>Perlu diperhatikan:</b> ' + esc(d.perhatian) + '</div></div>'; }).join('') +
     '<div class="small" style="margin-top:8px">DISC membantu mengenal gaya kerja, bukan menilai baik atau buruk. Setiap gaya punya kekuatan.</div>';
   return h;
 }
 
+/* ================= v2.1: Grafik (SVG buatan sendiri, tanpa library agar tetap ringan) ================= */
+const WARNA = { teal: '#0FADA6', tealD: '#0B8F89', orange: '#F5A01A', green: '#1C9A5E', red: '#D14343', grid: '#E2E9E8', mut: '#687776', ink: '#1E2928' };
+const DISC_W = { D: '#E0533D', I: '#F5A01A', S: '#1C9A5E', C: '#2F7DD1' };
+const warnaNilai = v => v === null || v === undefined ? WARNA.grid : v >= 80 ? WARNA.green : v >= 70 ? WARNA.teal : v >= 60 ? WARNA.orange : WARNA.red;
+const BLN = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
+const blnPendek = b => BLN[+String(b).slice(5, 7) - 1] || b;
+let gid = 0;
+// Selisih dengan periode sebelumnya: panah naik/turun.
+function delta(kini, lalu, satuan) {
+  if (kini === null || kini === undefined || lalu === null || lalu === undefined) return '';
+  const d = Math.round((kini - lalu) * 10) / 10;
+  if (!d) return '<span class="dl nol">= ' + esc(satuan || '') + '</span>';
+  return '<span class="dl ' + (d > 0 ? 'naik' : 'turun') + '">' + (d > 0 ? '▲ +' : '▼ ') + fmtN(d) + ' ' + esc(satuan || '') + '</span>';
+}
+// Meteran setengah lingkaran 0–100.
+function meteran(v, sub) {
+  const R = 70, cx = 90, cy = 86, a = Math.PI * (1 - Math.max(0, Math.min(100, v || 0)) / 100);
+  const x = cx + R * Math.cos(a), y = cy - R * Math.sin(a);
+  return '<svg viewBox="0 0 180 104" class="meter"><path d="M20 86A70 70 0 0 1 160 86" fill="none" stroke="rgba(255,255,255,.28)" stroke-width="14" stroke-linecap="round"/>' +
+    (v === null || v === undefined ? '' : '<path d="M20 86A70 70 0 0 1 ' + x.toFixed(1) + ' ' + y.toFixed(1) + '" fill="none" stroke="#fff" stroke-width="14" stroke-linecap="round"/>') +
+    '<text x="90" y="78" text-anchor="middle" font-size="34" font-weight="700" fill="#fff">' + fmtN(v) + '</text>' +
+    '<text x="90" y="98" text-anchor="middle" font-size="12" fill="rgba(255,255,255,.85)">' + esc(sub || '') + '</text></svg>';
+}
+// Cincin progres kecil.
+function cincin(n, d, warna, isi) {
+  const R = 22, K = 2 * Math.PI * R, p = d ? Math.min(1, n / d) : 0;
+  return '<svg viewBox="0 0 56 56" class="ring"><circle cx="28" cy="28" r="' + R + '" fill="none" stroke="' + WARNA.grid + '" stroke-width="6"/>' +
+    '<circle cx="28" cy="28" r="' + R + '" fill="none" stroke="' + (warna || WARNA.teal) + '" stroke-width="6" stroke-linecap="round" stroke-dasharray="' + (K * p).toFixed(1) + ' ' + K.toFixed(1) + '" transform="rotate(-90 28 28)"/>' +
+    '<text x="28" y="32.5" text-anchor="middle" font-size="13" font-weight="700" fill="' + WARNA.ink + '">' + (isi !== undefined ? isi : Math.round(p * 100) + '%') + '</text></svg>';
+}
+// Donat: seg = [{n, warna, label}]
+function donat(seg, tengah, bawah) {
+  const tot = seg.reduce((s, x) => s + x.n, 0), R = 46, K = 2 * Math.PI * R;
+  let off = 0, g = '<circle cx="60" cy="60" r="' + R + '" fill="none" stroke="' + WARNA.grid + '" stroke-width="16"/>';
+  if (tot) seg.forEach(x => {
+    if (!x.n) return;
+    const l = K * x.n / tot;
+    g += '<circle cx="60" cy="60" r="' + R + '" fill="none" stroke="' + x.warna + '" stroke-width="16" stroke-dasharray="' + Math.max(0, l - 1.5).toFixed(1) + ' ' + K.toFixed(1) + '" stroke-dashoffset="' + (-off).toFixed(1) + '" transform="rotate(-90 60 60)" data-tip="' + esc(x.label + ': ' + x.n) + '"/>';
+    off += l;
+  });
+  return '<svg viewBox="0 0 120 120" class="donut">' + g + '<text x="60" y="60" text-anchor="middle" font-size="24" font-weight="700" fill="' + WARNA.ink + '">' + esc(tengah) + '</text>' +
+    '<text x="60" y="78" text-anchor="middle" font-size="11" fill="' + WARNA.mut + '">' + esc(bawah || '') + '</text></svg>';
+}
+const legenda = seg => '<div class="lgd">' + seg.map(x => '<div><i style="background:' + x.warna + '"></i><span class="f">' + esc(x.label) + '</span><b>' + x.n + '</b></div>').join('') + '</div>';
+// Grafik garis. ser = [{nama, nilai:[...], warna, tipis}], label = [...]. Skala 0–100 (atau min otomatis bila semua data tinggi).
+function garis(ser, label, o) {
+  o = o || {};
+  const semua = []; ser.forEach(s => s.nilai.forEach(v => { if (v !== null && v !== undefined) semua.push(v); }));
+  if (!semua.length) return '<div class="kosong">' + esc(o.kosong || 'Belum ada data.') + '</div>';
+  const W = 330, H = o.tinggi || 170, L = 30, R = 14, T = 18, Bm = 24, n = label.length;
+  let lo = 0; const mn = Math.min.apply(null, semua);
+  if (o.zoom && mn >= 60) lo = Math.floor((mn - 10) / 10) * 10;
+  const X = i => n === 1 ? (L + W - R) / 2 : L + i * (W - L - R) / (n - 1), Y = v => T + (100 - v) * (H - T - Bm) / (100 - lo);
+  const id = 'g' + (++gid);
+  let g = '<defs><linearGradient id="' + id + '" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="' + ser[0].warna + '" stop-opacity=".28"/><stop offset="1" stop-color="' + ser[0].warna + '" stop-opacity="0"/></linearGradient></defs>';
+  [lo, lo + (100 - lo) / 2, 100].forEach(v => { g += '<line x1="' + L + '" x2="' + (W - R) + '" y1="' + Y(v) + '" y2="' + Y(v) + '" stroke="' + WARNA.grid + '" stroke-dasharray="' + (v === lo ? '0' : '3 4') + '"/><text x="' + (L - 6) + '" y="' + (Y(v) + 3.5) + '" text-anchor="end" font-size="10" fill="' + WARNA.mut + '">' + Math.round(v) + '</text>'; });
+  if (o.garisAcuan) g += '<line x1="' + L + '" x2="' + (W - R) + '" y1="' + Y(o.garisAcuan) + '" y2="' + Y(o.garisAcuan) + '" stroke="' + WARNA.orange + '" stroke-width="1" stroke-dasharray="5 4"/><text x="' + (L + 4) + '" y="' + (Y(o.garisAcuan) + 12) + '" text-anchor="start" font-size="9.5" fill="#A86600">' + esc(o.acuanTeks || '') + '</text>';
+  label.forEach((x, i) => { g += '<text x="' + X(i) + '" y="' + (H - 6) + '" text-anchor="middle" font-size="10" fill="' + WARNA.mut + '">' + esc(x) + '</text>'; });
+  // urutan gambar: seri tipis dulu, seri utama paling atas
+  ser.slice().reverse().forEach((s, si) => {
+    const utama = si === ser.length - 1;
+    let d = '', pen = false, pts = [];
+    s.nilai.forEach((v, i) => { if (v === null || v === undefined) { pen = false; return; } d += (pen ? 'L' : 'M') + X(i).toFixed(1) + ' ' + Y(v).toFixed(1) + ' '; pen = true; pts.push(i); });
+    if (utama && pts.length > 1 && !o.tanpaArea) {
+      const seg = []; let cur = [];
+      s.nilai.forEach((v, i) => { if (v === null || v === undefined) { if (cur.length) seg.push(cur); cur = []; } else cur.push(i); });
+      if (cur.length) seg.push(cur);
+      seg.filter(c => c.length > 1).forEach(c => { g += '<path d="M' + X(c[0]) + ' ' + Y(lo) + ' ' + c.map(i => 'L' + X(i).toFixed(1) + ' ' + Y(s.nilai[i]).toFixed(1)).join(' ') + ' L' + X(c[c.length - 1]) + ' ' + Y(lo) + 'Z" fill="url(#' + id + ')"/>'; });
+    }
+    g += '<path d="' + d + '" fill="none" stroke="' + s.warna + '" stroke-width="' + (s.tipis ? 1.5 : 2.5) + '" stroke-linejoin="round" stroke-linecap="round"' + (s.tipis ? ' opacity=".55"' : '') + '/>';
+    pts.forEach(i => {
+      const tip = esc((s.nama ? s.nama + ' · ' : '') + label[i] + ': ' + fmtN(s.nilai[i]));
+      if (!s.tipis || pts.length === 1) g += '<circle cx="' + X(i) + '" cy="' + Y(s.nilai[i]) + '" r="' + (s.tipis ? 3 : 4.5) + '" fill="' + s.warna + '" stroke="#fff" stroke-width="2"/>';
+      g += '<circle cx="' + X(i) + '" cy="' + Y(s.nilai[i]) + '" r="13" fill="transparent" data-tip="' + tip + '"/>';
+    });
+    if (utama && pts.length) { const li = pts[pts.length - 1]; g += '<text x="' + Math.min(X(li), W - R - 8) + '" y="' + (Y(s.nilai[li]) - 10) + '" text-anchor="middle" font-size="12" font-weight="700" fill="' + WARNA.ink + '">' + fmtN(s.nilai[li]) + '</text>'; }
+  });
+  const leg = ser.length > 1 && !o.tanpaLegenda ? '<div class="lgl">' + ser.filter(s => !s.tipis).map(s => '<span><i style="background:' + s.warna + '"></i>' + esc(s.nama) + '</span>').join('') + (ser.some(s => s.tipis) ? '<span><i style="background:#9AA9A8;height:2px"></i>' + esc(o.tipisTeks || 'per orang') + '</span>' : '') + '</div>' : '';
+  return '<div class="chart"><svg viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="' + esc(o.nama || 'grafik') + '">' + g + '</svg></div>' + leg +
+    (semua.length === 1 && o.satuTitik ? '<div class="small" style="margin-top:2px">' + esc(o.satuTitik) + '</div>' : '');
+}
+// Batang mendatar: item = {label, sub, v, maks, warna, teks, attr}
+function batang(items) {
+  return '<div class="hb">' + items.map(x => '<div class="hbr"' + (x.attr || '') + '><div class="hbl"><div class="t">' + esc(x.label) + '</div>' + (x.sub ? '<div class="small">' + x.sub + '</div>' : '') + '</div>' +
+    '<div class="hbt"><i style="width:' + (x.v === null || x.v === undefined ? 0 : Math.max(2, Math.min(100, x.v / (x.maks || 100) * 100))) + '%;background:' + (x.warna || WARNA.teal) + (x.pudar ? ';opacity:.5' : '') + '"></i></div>' +
+    '<div class="hbv">' + (x.teks !== undefined ? x.teks : fmtN(x.v)) + '</div></div>').join('') + '</div>';
+}
+// Skor DISC (−24..+24) sebagai batang dua arah.
+function discBatang(skor, profil) {
+  const m = Math.max(6, ...'DISC'.split('').map(k => Math.abs(skor[k] || 0)));
+  return '<div class="db">' + 'DISC'.split('').map(k => {
+    const v = skor[k] || 0, w = Math.abs(v) / m * 50;
+    return '<div class="dbr' + (profil && profil.includes(k) ? ' on' : '') + '"><div class="dbk" style="background:' + DISC_W[k] + '">' + k + '</div><div class="dbn">' + DISC_NAMA[k] + '</div>' +
+      '<div class="dbt"><i style="' + (v >= 0 ? 'left:50%' : 'left:' + (50 - w) + '%') + ';width:' + w + '%;background:' + DISC_W[k] + '"></i><b></b></div><div class="dbv">' + (v > 0 ? '+' : '') + v + '</div></div>';
+  }).join('') + '</div>';
+}
+// Kerangka abu-abu selama data pertama kali dimuat.
+const KERANGKA = '<div class="sk hero"></div><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px"><div class="sk" style="height:96px"></div><div class="sk" style="height:96px"></div><div class="sk" style="height:96px"></div></div><div class="sk" style="height:200px"></div><div class="sk" style="height:160px"></div>';
+
 /* ================= v2: Beranda (dashboard) ================= */
 let B = null;
+const kunciB = () => 'b_' + String(user && user.nama || '').toLowerCase();
+// Data terakhir langsung ditampilkan dari memori HP, lalu diperbarui dari server di belakang.
 async function renderBeranda() {
-  const el = $('#tab_beranda'); el.innerHTML = LOAD;
-  try { B = await api('beranda'); DISCI = B.disc; } catch (e) { return gagal(el, e, renderBeranda); }
-  let h = '<div class="card"><div class="row"><div class="f"><div class="hello">Halo, ' + esc(pendek(B.nama)) + '</div><div class="small">' + esc(B.label) + '</div></div>' +
-    (B.jabatan ? '<span class="chip">' + esc(B.jabatanNama) + '</span>' : B.admin ? '<span class="chip">Admin</span>' : '') + '</div></div>';
+  const el = $('#tab_beranda'), lama = LS.get(kunciB(), null);
+  if (lama) gambarBeranda(lama, true); else el.innerHTML = KERANGKA;
+  let r;
+  try { r = await api('beranda'); }
+  catch (e) {
+    if (sesiHabis(e)) return gagal(el, e, renderBeranda);
+    if (lama) { const s = $('#bStatus'); if (s) { s.className = 'upd err'; s.textContent = e.net ? 'Offline · data terakhir' : 'Gagal memperbarui'; } return; }
+    return gagal(el, e, renderBeranda);
+  }
+  delete r.dariCache;
+  const baru = JSON.stringify(r) !== JSON.stringify(lama);
+  LS.set(kunciB(), r);
+  if (baru || !lama) gambarBeranda(r, false); else { const s = $('#bStatus'); if (s) s.remove(); }
+}
+function gambarBeranda(data, lama) {
+  B = data; DISCI = B.disc;
+  const el = $('#tab_beranda');
+  let h = '<div class="hero"><div class="row"><div class="f"><div class="hello">Halo, ' + esc(pendek(B.nama)) + ' 👋</div><div class="hs">' + esc(B.label) + '</div></div>' +
+    (B.jabatan ? '<span class="chip hc">' + esc(B.jabatanNama) + '</span>' : B.admin ? '<span class="chip hc">Admin</span>' : '') + '</div>' +
+    (lama ? '<div id="bStatus" class="upd"><span class="spin s"></span>Memperbarui…</div>' : '');
+  if (B.saya) {
+    const n = B.saya.nilai, tr = B.saya.tren || [], lalu = tr.length > 1 ? tr[tr.length - 2].v : null;
+    h += '<div class="heroN">' + meteran(n ? n.total : null, n ? n.label.replace(/ \(.*\)/, '') : 'belum ada nilai final') +
+      '<div class="f"><div class="hs">Nilai kinerja terakhir</div><div class="hp">' + (n ? esc(n.predikat) : 'Belum dinilai') + '</div>' +
+      (n && lalu !== null ? delta(n.total, lalu, 'dari triwulan lalu').replace('class="dl', 'class="dl inv') : '') +
+      (n && n.rp ? '<div class="hs" style="margin-top:6px">Bonus: Rp ' + Number(n.rp).toLocaleString('id-ID') + '</div>' : '') + '</div></div>';
+  }
+  h += '</div>';
   if (B.saya) h += berandaSaya(B.saya);
   if (B.tim) h += berandaTim(B.tim);
   if (!B.saya && !B.tim) h += '<div class="card small">Jabatan Anda belum diatur, jadi belum ada data kinerja. Hubungi admin.</div>';
   el.innerHTML = h;
   el.querySelectorAll('[data-ke]').forEach(b => b.onclick = () => pilihTab(b.dataset.ke));
   el.querySelectorAll('[data-org]').forEach(b => b.onclick = () => orangModal(B.tim.orang[+b.dataset.org]));
+  el.querySelectorAll('[data-dsc]').forEach(b => b.onclick = () => alertBox('Gaya kerja Anda', discHTML(B.saya.disc.profil, B.saya.disc.skor, true)));
 }
+const ikonTodo = { ujian: IKON.ujian, trampil: IKON.trampil, belajar: IKON.belajar };
 function berandaSaya(s) {
-  const r = s.trampil;
-  let h = '<div class="card"><b>Perlu dikerjakan</b>' + (s.todo.length ? s.todo.map(t => '<div class="item"><div class="f"' + (t.penting ? ' style="font-weight:700"' : '') + '>' + esc(t.teks) + '</div><button class="link" data-ke="' + t.tab + '">Buka ›</button></div>').join('')
-    : '<div class="small" style="margin-top:4px">Tidak ada yang menunggu. Mantap!</div>') + '</div>';
-  h += '<div class="sum">' +
-    '<div><span class="small">Nilai terakhir</span><b>' + (s.nilai ? fmtN(s.nilai.total) : '–') + '</b><span class="small">' + (s.nilai ? esc(s.nilai.predikat) : 'belum ada') + '</span></div>' +
-    '<div><span class="small">Mandiri</span><b>' + r.mandiri + '/' + r.jumlah + '</b><span class="small">keterampilan</span></div>' +
-    '<div><span class="small">Gaya kerja</span><b>' + (s.disc && s.disc.profil ? esc(s.disc.profil) : '–') + '</b><span class="small">' + (s.disc && s.disc.profil ? esc(DISC_NAMA[s.disc.profil[0]]) : 'belum tes') + '</span></div></div>';
-  h += '<div class="card"><b>Perlu ditingkatkan</b>' + (s.gap.length ? s.gap.map(g => '<div class="item"><div class="f">' + esc(g.tugas) + '</div>' + lvChip(g.level) + '</div>').join('') +
+  const r = s.trampil, dsp = s.disiplin || [], bl = B.bulan || [];
+  const dKini = dsp.length ? dsp[dsp.length - 1] : null, dLalu = dsp.length > 1 ? dsp[dsp.length - 2] : null;
+  let h = '';
+  if (s.todo.length) h += '<div class="card todo"><div class="ct">Perlu dikerjakan <span class="nb">' + s.todo.length + '</span></div>' + s.todo.map(t => '<button class="ti' + (t.penting ? ' pt' : '') + '" data-ke="' + t.tab + '"><span class="ico ' + (t.penting ? 'o' : 't') + '">' + SVG(ikonTodo[t.tab] || IKON.beranda) + '</span><span class="f">' + esc(t.teks) + '</span><span class="ar">›</span></button>').join('') + '</div>';
+  else h += '<div class="card todo ok"><span class="ico g">' + SVG('<path d="M5 12l5 5 9-10"/>') + '</span><div class="f"><b>Semua beres!</b><div class="small">Tidak ada tugas yang menunggu.</div></div></div>';
+  // 3 kartu angka
+  h += '<div class="sum kpi">' +
+    '<div data-ke="trampil">' + cincin(r.mandiri, r.jumlah, WARNA.teal, r.mandiri) + '<span class="small">Keterampilan<br>mandiri dari ' + r.jumlah + '</span></div>' +
+    '<div><b style="color:' + warnaNilai(dKini) + '">' + fmtN(dKini) + '</b><span class="small">Disiplin<br>bulan ini</span>' + delta(dKini, dLalu, '') + '</div>' +
+    '<div' + (s.disc && s.disc.profil ? ' data-dsc style="cursor:pointer"' : ' data-ke="ujian"') + '><b>' + (s.disc && s.disc.profil ? s.disc.profil.split('').map(k => '<span style="color:' + DISC_W[k] + '">' + k + '</span>').join('') : '–') + '</b><span class="small">Gaya kerja<br>' + (s.disc && s.disc.profil ? esc(DISC_NAMA[s.disc.profil[0]]) : 'belum tes') + '</span></div></div>';
+  // tren
+  const tr = s.tren || [];
+  h += '<div class="card"><div class="ct">Tren nilai kinerja</div><div class="small">Nilai final per triwulan</div>' +
+    garis([{ nama: 'Nilai', nilai: tr.map(x => x.v), warna: WARNA.teal }], tr.map(x => perPendek(x.p)), { nama: 'Tren nilai kinerja', kosong: 'Belum ada nilai final. Grafik muncul setelah penilaian triwulan pertama.', satuTitik: 'Garis tren muncul setelah ada 2 triwulan.', garisAcuan: 70, acuanTeks: 'Baik (70)' }) + '</div>';
+  if (bl.length) h += '<div class="card"><div class="ct">Kedisiplinan per bulan</div><div class="small">Dari data absensi: 100 dikurangi poin terlambat, pulang awal, dll.</div>' +
+    garis([{ nama: 'Disiplin', nilai: dsp, warna: WARNA.green }], bl.map(blnPendek), { nama: 'Disiplin per bulan', zoom: true, kosong: 'Belum ada data absensi 6 bulan terakhir.' }) + '</div>';
+  // keterampilan
+  const d = s.dist || [0, 0, 0, 0, 0], seg = [{ n: d[3], warna: '#0B6F6A', label: '3 · Bisa mengajari' }, { n: d[2], warna: '#3FB8B1', label: '2 · Mandiri' }, { n: d[1], warna: '#A9DEDA', label: '1 · Bisa dibantu' }, { n: d[0], warna: '#F2B8B8', label: '0 · Belum bisa' }, { n: d[4], warna: '#E2E9E8', label: 'Belum dinilai' }];
+  h += '<div class="card"><div class="ct">Keterampilan saya</div><div class="dn">' + donat(seg, r.jumlah ? Math.round(r.mandiri / r.jumlah * 100) + '%' : '–', 'mandiri') + legenda(seg) + '</div>' +
+    (s.gap.length ? '<div class="sub">Perlu ditingkatkan</div>' + s.gap.map(g => '<div class="item"><div class="f">' + esc(g.tugas) + '</div>' + lvChip(g.level) + '</div>').join('') +
       '<button class="link" data-ke="belajar" style="margin-top:6px">Lihat materi belajar ›</button>'
-    : '<div class="small" style="margin-top:4px">' + (r.diri || r.atasan ? 'Tidak ada keterampilan di level 0–1. Bagus!' : 'Isi nilai diri di menu Keterampilan supaya terlihat apa yang perlu ditingkatkan.') + '</div>') + '</div>';
-  h += '<div class="card"><b>Target belajar saya</b>' + (s.rencana.length ? s.rencana.map(x => '<div class="item"><div class="f">' + esc(x.target) + '</div>' + stChip(x.status) + '</div>').join('')
+      : '<div class="small" style="margin-top:8px">' + (r.diri || r.atasan ? 'Tidak ada keterampilan di level 0–1. Bagus!' : 'Isi nilai diri di menu Keterampilan supaya terlihat apa yang perlu ditingkatkan.') + '</div>') + '</div>';
+  if (s.disc && s.disc.skor) h += '<div class="card"><div class="ct">Gaya kerja (DISC) · ' + esc(s.disc.profil) + '</div><div class="small">Skor Paling − Paling Tidak. Makin panjang ke kanan, makin kuat gaya itu.</div>' + discBatang(s.disc.skor, s.disc.profil) + '<button class="link" data-dsc style="margin-top:6px">Lihat penjelasan ›</button></div>';
+  h += '<div class="card"><div class="ct">Target belajar saya</div>' + (s.rencana.length ? s.rencana.map(x => '<div class="item"><div class="f">' + esc(x.target) + '</div>' + stChip(x.status) + '</div>').join('')
     : '<div class="small" style="margin-top:4px">Belum ada target. Buat target di menu Belajar.</div>') + '<button class="link" data-ke="belajar" style="margin-top:6px">Kelola target ›</button></div>';
   return h;
 }
 function berandaTim(t) {
-  let h = '<div class="dateHead">' + (B.admin ? 'Tim' : 'Tim yang Anda nilai') + ' · ' + t.orang.length + ' orang</div>';
-  h += '<div class="sum">' +
-    '<div><span class="small">Rata-rata nilai</span><b>' + fmtN(t.rata) + '</b><span class="small">triwulan ini</span></div>' +
-    '<div><span class="small">Penilaian final</span><b>' + t.final + '/' + t.orang.length + '</b><span class="small">' + t.draft + ' draf</span></div>' +
-    '<div><span class="small">Titik rawan</span><b>' + t.peta.rawan.length + '</b><span class="small">tugas</span></div></div>';
-  h += '<div class="card"><b>Ujian & tes triwulan ini</b>' + t.progres.map(p => '<div style="margin-top:12px"><div class="row small"><span class="f" style="color:var(--ink);font-weight:600">' + esc(p.nama) + '</span><span>' +
-      (p.tipe === 'praktik' ? p.selesai + '/' + p.total + ' dinilai' : (p.dibuka ? '' : 'ditutup · ') + p.selesai + '/' + p.total + ' selesai') + '</span></div>' + barH(p.selesai, p.total) + '</div>').join('') +
+  const bl = B.bulan || [], dt = t.disiplin || [], n = t.orang.length;
+  const dKini = dt.length ? dt[dt.length - 1] : null, dLalu = dt.length > 1 ? dt[dt.length - 2] : null;
+  let h = '<div class="dateHead">' + (B.admin ? 'Tim' : 'Tim yang Anda nilai') + ' · ' + n + ' orang</div>';
+  h += '<div class="kpi4">' +
+    '<div><span class="small">Rata-rata nilai</span><b style="color:' + warnaNilai(t.rata) + '">' + fmtN(t.rata) + '</b>' + (delta(t.rata, t.rataLalu, 'vs triwulan lalu') || '<span class="small">triwulan ini</span>') + '</div>' +
+    '<div class="r">' + cincin(t.final, n, WARNA.green, t.final + '/' + n) + '<span class="small">Penilaian final<br>' + t.draft + ' draf</span></div>' +
+    '<div><span class="small">Disiplin bulan ini</span><b style="color:' + warnaNilai(dKini) + '">' + fmtN(dKini) + '</b>' + (delta(dKini, dLalu, 'vs bulan lalu') || '<span class="small">rata-rata tim</span>') + '</div>' +
+    '<div data-ke="trampil"><span class="small">Titik rawan</span><b style="color:' + (t.peta.rawan.length ? WARNA.red : WARNA.green) + '">' + t.peta.rawan.length + '</b><span class="small">tugas hanya dikuasai ≤1 orang</span></div></div>';
+  // nilai per orang (ketuk untuk detail)
+  h += '<div class="card"><div class="ct">Nilai per orang</div><div class="small">Triwulan ini. Pudar = masih draf. Ketuk nama untuk detail.</div>' +
+    (n ? batang(t.orang.map((o, i) => ({ label: o.nama, attr: ' data-org="' + i + '"',
+      sub: esc(JABN[o.jabatan]) + (o.disc ? ' · <b style="color:' + DISC_W[o.disc[0]] + '">' + esc(o.disc) + '</b>' : '') + ' · mandiri ' + o.trampil.mandiri + '/' + o.trampil.jumlah,
+      v: o.nilai ? o.nilai.total : null, warna: warnaNilai(o.nilai && o.nilai.total), pudar: o.nilai && o.nilai.status !== 'Final',
+      teks: o.nilai && o.nilai.total !== null ? fmtN(o.nilai.total) : '<span class="small">belum</span>' }))) : '<div class="small">Belum ada karyawan dengan jabatan.</div>') + '</div>';
+  // tren nilai tim
+  const tr = t.tren || [];
+  h += '<div class="card"><div class="ct">Tren rata-rata nilai tim</div><div class="small">Per triwulan (triwulan berjalan termasuk draf)</div>' +
+    garis([{ nama: 'Rata-rata tim', nilai: tr.map(x => x.v), warna: WARNA.teal }], tr.map(x => perPendek(x.p)), { nama: 'Tren nilai tim', kosong: 'Belum ada nilai. Grafik muncul setelah penilaian pertama.', satuTitik: 'Garis tren muncul setelah ada 2 triwulan.', garisAcuan: 70, acuanTeks: 'Baik (70)' }) + '</div>';
+  // disiplin per bulan: rata-rata tim + garis tipis per orang
+  if (bl.length) h += '<div class="card"><div class="ct">Kedisiplinan tim per bulan</div><div class="small">Garis tebal = rata-rata tim. Ketuk titik untuk melihat nilainya.</div>' +
+    garis([{ nama: 'Rata-rata tim', nilai: dt, warna: WARNA.green }].concat(t.orang.filter(o => o.disiplin && o.disiplin.some(v => v !== null)).map(o => ({ nama: pendek(o.nama), nilai: o.disiplin, warna: '#9AA9A8', tipis: true }))),
+      bl.map(blnPendek), { nama: 'Disiplin tim', zoom: true, kosong: 'Belum ada data absensi 6 bulan terakhir.' }) + '</div>';
+  // progres ujian
+  h += '<div class="card"><div class="ct">Ujian & tes triwulan ini</div><div class="rings">' + t.progres.map(p => '<div>' + cincin(p.selesai, p.total, p.tipe === 'praktik' ? WARNA.orange : p.kode === 'PENGETAHUAN' ? WARNA.teal : '#2F7DD1', p.selesai + '/' + p.total) +
+    '<div class="rn">' + esc(p.nama.replace(/^(Tes|Ujian) /, '')) + '</div><div class="small">' + (p.tipe === 'praktik' ? 'dinilai' : p.dibuka ? 'dibuka' : 'ditutup') + '</div></div>').join('') + '</div>' +
     '<button class="link" data-ke="ujian" style="margin-top:8px">Kelola ujian ›</button></div>';
-  h += '<div class="card"><b>Ringkasan per orang</b><div class="small">Ketuk nama untuk detail.</div>' + (t.orang.length ? t.orang.map((o, i) => '<div class="item" data-org="' + i + '" style="cursor:pointer"><div class="f"><div class="t">' + esc(o.nama) + '</div><div class="small">' +
-      esc(JABN[o.jabatan]) + ' · nilai ' + (o.nilai && o.nilai.total !== null ? fmtN(o.nilai.total) + (o.nilai.status === 'Final' ? '' : ' (draf)') : 'belum') +
-      ' · mandiri ' + o.trampil.mandiri + '/' + o.trampil.jumlah + (o.disc ? ' · DISC ' + esc(o.disc) : '') + '</div></div>' +
-      (o.nilai && o.nilai.status === 'Final' ? chipPred(o.nilai.predikat) : '') + '<span class="link">›</span></div>').join('') : '<div class="small">Belum ada karyawan dengan jabatan.</div>') + '</div>';
-  h += '<div class="card"><b>Peta keterampilan tim</b><div class="small">Level tiap orang per tugas. Nilai atasan dipakai bila ada; kalau belum, nilai diri.</div>' + petaHTML(t.peta) +
+  // DISC tim
+  const seg = 'DISC'.split('').map(k => ({ n: t.disc[k], warna: DISC_W[k], label: k + ' · ' + DISC_NAMA[k] })).concat([{ n: t.disc.belum, warna: '#E2E9E8', label: 'Belum tes' }]);
+  h += '<div class="card"><div class="ct">Komposisi gaya kerja (DISC)</div><div class="small">Jumlah orang menurut gaya kerja utamanya.</div><div class="dn">' + donat(seg, String(n - t.disc.belum), 'sudah tes') + legenda(seg) + '</div></div>';
+  // keterampilan mandiri per orang
+  h += '<div class="card"><div class="ct">Keterampilan mandiri per orang</div><div class="small">Persen tugas yang sudah Mandiri atau Bisa mengajari.</div>' +
+    batang(t.orang.map((o, i) => { const p = o.trampil.jumlah ? Math.round(o.trampil.mandiri / o.trampil.jumlah * 100) : null; return { label: pendek(o.nama), attr: ' data-org="' + i + '"', v: p, warna: '#3FB8B1', teks: p === null ? '–' : p + '%' }; })) + '</div>';
+  h += '<div class="card"><div class="ct">Peta keterampilan tim</div><div class="small">Level tiap orang per tugas. Nilai atasan dipakai bila ada; kalau belum, nilai diri.</div>' + petaHTML(t.peta) +
     '<button class="link" data-ke="trampil" style="margin-top:8px">Nilai keterampilan tim ›</button></div>';
   h += rawanHTML(t.peta, 5);
-  h += '<div class="card"><b>Komposisi gaya kerja (DISC)</b><div class="disc" style="margin-top:8px">' + 'DISC'.split('').map(k => '<div><b>' + t.disc[k] + '</b><span class="small">' + k + ' · ' + DISC_NAMA[k] + '</span></div>').join('') + '</div>' +
-    '<div class="small" style="margin-top:6px">Jumlah orang menurut gaya kerja utamanya.' + (t.disc.belum ? ' ' + t.disc.belum + ' orang belum tes DISC.' : '') + '</div></div>';
   return h;
 }
 function subTeks(j, s) {
@@ -958,6 +1184,8 @@ function orangModal(o) {
     kv('Nilai diri triwulan ini', o.trampil.diriKini ? 'sudah diisi' : 'belum') +
     kv('Gaya kerja (DISC)', o.disc ? esc(o.disc) + ' · ' + o.disc.split('').map(k => DISC_NAMA[k]).join(' + ') : 'belum tes') +
     kv('Target belajar aktif', String(o.rencana)) +
+    (o.disiplin && B.bulan && o.disiplin.some(v => v !== null) ? '<div class="dateHead" style="margin-left:0">Kedisiplinan per bulan</div>' +
+      garis([{ nama: 'Disiplin', nilai: o.disiplin, warna: WARNA.green }], B.bulan.map(blnPendek), { nama: 'Disiplin ' + o.nama, zoom: true, tinggi: 140 }) : '') +
     '<div class="row" style="margin-top:14px"><button class="btn light f" id="oTr">Nilai keterampilan</button><button class="btn light f" id="oRc">Target belajar</button></div>' +
     '<div class="row" style="margin-top:8px"><button class="btn ghost f" id="oRw">Riwayat</button><button class="btn ghost f" id="mOk">Tutup</button></div>');
   $('#mOk').onclick = closeModal;
@@ -970,7 +1198,8 @@ function orangModal(o) {
 let SUB = null;
 async function renderUjian() {
   const el = $('#tab_ujian'); el.innerHTML = LOAD;
-  try { const r = await Promise.all([api('kinerjaInfo'), api('subInfo')]); K = r[0]; SUB = r[1]; DISCI = SUB.disc; }
+  let UT; // v2.1: semua data menu ini dalam 1 permintaan
+  try { UT = await api('ujianTab', { periode: kPeriode || '' }); K = UT.k; SUB = UT.s; DISCI = SUB.disc; }
   catch (e) { return gagal(el, e, renderUjian); }
   if (!kPeriode || !K.periodeList.some(p => p.k === kPeriode)) kPeriode = K.periode;
   let h = '<div class="card"><b style="font-size:17px">Ujian & tes</b><div class="small">' + esc(K.periodeLabel) + '</div>' +
@@ -993,7 +1222,10 @@ async function renderUjian() {
     $('#uPer').onchange = e => { kPeriode = e.target.value; muatUjianAdmin(); SUB.jenis.forEach(j => muatSubAdmin(j.kode)); };
     if ($('#kSoal')) $('#kSoal').onclick = () => bukaBankSoal();
     if ($('#jTambah')) $('#jTambah').onclick = () => formJenis(null);
-    muatUjianAdmin(); SUB.jenis.forEach(j => muatSubAdmin(j.kode));
+    if (UT.periode !== kPeriode || !UT.uh) { muatUjianAdmin(); SUB.jenis.forEach(j => muatSubAdmin(j.kode)); return; }
+    const salah = (sel, x) => { const e = $(sel); if (e) e.innerHTML = '<div class="small" style="color:var(--red)">' + esc(x.error || 'Gagal memuat.') + '</div>'; };
+    if (UT.uh.ok) gambarUjianAdmin(UT.uh); else salah('#uAdmin', UT.uh);
+    SUB.jenis.forEach(j => { const x = UT.sh && UT.sh[j.kode]; if (x && x.ok) gambarSubAdmin(x); else if (x) salah('#sub_' + j.kode, x); else muatSubAdmin(j.kode); });
   }
 }
 function kartuSub(j) {
@@ -1429,6 +1661,6 @@ window.addEventListener('beforeunload', e => { if (UJ && !UJ.kirim) { e.preventD
   masuk();
 })();
 </script>
-<script>if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(function(){});</script>
+<script>if('serviceWorker' in navigator){var swLama=!!navigator.serviceWorker.controller;navigator.serviceWorker.register('sw.js').catch(function(){});navigator.serviceWorker.addEventListener('controllerchange',function(){if(swLama&&typeof toast==='function')toast('Versi baru aplikasi sudah terpasang. Tutup lalu buka lagi untuk memakainya.',6000);});}</script>
 </body>
 </html>
